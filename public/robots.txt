@@ -1,0 +1,11 @@
+# robots.txt for KONET – site en construction
+# Domaine actuel : (aucun pour le moment)
+# À mettre à jour une fois le site en ligne, par exemple :
+# Domaine : https://www.konet.com
+
+User-agent: *
+Allow: /
+
+# Aucun chemin restreint pour le moment
+# Pas encore de sitemap – à ajouter une fois le site publié
+# Exemple futur : Sitemap: https://www.konet.com/sitemap.xml
