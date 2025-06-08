@@ -1,0 +1,20 @@
+/* global styles */
+
+:root {
+  --primary-color: #ffffff;
+  --secondary-color: #d32f2f;
+  --neutral-color: #d0c7c7;
+  --border-color: #000000;
+  --box-color: #000000eb;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "montserrat", sans-serif;
+  background-color: var(--primary-color);
+}
