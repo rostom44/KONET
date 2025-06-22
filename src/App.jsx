@@ -1,12 +1,20 @@
+import { Outlet } from "react-router-dom";
+
 import "./styles/App.css";
 import Navbar from "./components/navbar.jsx";
 
 function App() {
   return (
-    <>
+    <main>
       <Navbar />
-      <h1>KONET</h1>
-    </>
+      <Outlet />
+      <footer>
+        <p> {new Date().getFullYear()} konet</p>
+        <p>
+          <a href="mailto:K7G7L@example.com">K7G7L@example.com</a>
+        </p>
+      </footer>
+    </main>
   );
 }
 
