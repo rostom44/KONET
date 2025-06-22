@@ -5,7 +5,7 @@ import Navbar from "./components/navbar.jsx";
 
 function App() {
   return (
-    <>
+    <main>
       <Navbar />
       <Outlet />
       <footer>
@@ -14,7 +14,7 @@ function App() {
           <a href="mailto:K7G7L@example.com">K7G7L@example.com</a>
         </p>
       </footer>
-    </>
+    </main>
   );
 }
 
