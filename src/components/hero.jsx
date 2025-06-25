@@ -4,19 +4,25 @@ function Hero() {
   return (
     <div className="hero">
       <div className="hero-overlay" />
-      <img className="hero-img" src="/assets/clean1.jpg" alt="cleaning" />
       <div className="hero-content">
-        <h1>
-          fresh,
+        <h1 className="hero-title">
+          fresh
           <br />
           propre
           <br />
           et brillant
         </h1>
-        <p>Notre Priorité Votre Propreté</p>
+        <div className="hero-subtitle">
+          <span className="konet">konet</span> est la pour vous
+          <br />
+          nous offrons divers services pour nettoyer ce dont vous avez besoin
+        </div>
         <div className="hero-buttons">
-          <button>services</button>
-          <button>contact us</button>
+          <button className="hero-btn">services</button>
+          <span className="priority-text">
+            Notre Priorité c'est Votre Propreté
+          </span>
+          <button className="hero-btn">contact us</button>
         </div>
       </div>
     </div>
