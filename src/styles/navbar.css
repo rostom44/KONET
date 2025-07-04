@@ -21,6 +21,7 @@ header {
 .nav-desktop {
   display: none;
   gap: 2rem;
+  margin-top: 2%;
 }
 
 .nav-desktop a {
