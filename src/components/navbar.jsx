@@ -17,7 +17,8 @@ function Navbar() {
             Accueil
           </NavLink>
           <NavLink to="/services">Services</NavLink>
-          {/* <NavLink to="/about">À propos</NavLink> */}
+          <NavLink to="/about">À propos</NavLink>
+          <NavLink to="/contact">Contact</NavLink>
         </nav>
 
         <div className="phone">
