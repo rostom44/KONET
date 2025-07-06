@@ -5,6 +5,8 @@ import "./styles/root.css";
 import App from "./App.jsx";
 import Home from "./pages/home.jsx";
 import Services from "./pages/services.jsx";
+import About from "./pages/about.jsx";
+import Contact from "./pages/contact.jsx";
 
 const router = createBrowserRouter([
   {
@@ -19,14 +21,14 @@ const router = createBrowserRouter([
         path: "/services",
         element: <Services />,
       },
-      // {
-      //   path: "/a propos",
-      //   element: ,
-      // },
-      // {
-      //   path: "/contact",
-      //   element: ,
-      // },
+      {
+        path: "/a propos",
+        element: <About />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
     ],
   },
 ]);

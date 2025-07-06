@@ -1,0 +1,84 @@
+{
+  "services": [
+    {
+      "id": 1,
+      "name": "clean",
+      "description": "",
+      "content": "",
+      "icon": "path",
+      "hint": ""
+    },
+    {
+      "id": 2,
+      "name": "clean",
+      "description": "",
+      "content": "",
+      "icon": "path",
+      "hint": ""
+    },
+    {
+      "id": 3,
+      "name": "clean",
+      "description": "",
+      "content": "",
+      "icon": "path",
+      "hint": ""
+    },
+    {
+      "id": 4,
+      "name": "clean",
+      "description": "",
+      "content": "",
+      "icon": "path",
+      "hint": ""
+    },
+    {
+      "id": 5,
+      "name": "clean",
+      "description": "",
+      "content": "",
+      "icon": "path",
+      "hint": ""
+    },
+    {
+      "id": 6,
+      "name": "clean",
+      "description": "",
+      "content": "",
+      "icon": "path",
+      "hint": ""
+    },
+    {
+      "id": 7,
+      "name": "clean",
+      "description": "",
+      "content": "",
+      "icon": "path",
+      "hint": ""
+    },
+    {
+      "id": 8,
+      "name": "clean",
+      "description": "",
+      "content": "",
+      "icon": "path",
+      "hint": ""
+    },
+    {
+      "id": 9,
+      "name": "clean",
+      "description": "",
+      "content": "",
+      "icon": "path",
+      "hint": ""
+    },
+    {
+      "id": 10,
+      "name": "clean",
+      "description": "",
+      "content": "",
+      "icon": "path",
+      "hint": ""
+    }
+  ]
+}

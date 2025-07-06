@@ -21,6 +21,7 @@ header {
 .nav-desktop {
   display: none;
   gap: 2rem;
+  margin-top: 2%;
 }
 
 .nav-desktop a {
@@ -39,6 +40,7 @@ header {
   right: 20px;
   top: 20px;
 }
+
 .bm-burger-bars {
   background: #000000;
 }
@@ -59,17 +61,57 @@ header {
 .bm-cross {
   background: #000000; /* Black close button */
 }
+
 .bm-menu-wrap {
   top: 0 !important;
   height: 100% !important;
 }
+
 .phone {
   display: none;
 }
+
 /* Media Query: Desktop view */
 @media (min-width: 768px) {
+  .navbar-container {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-areas: "nav logo phone";
+    align-items: center;
+    gap: 2rem;
+    padding: 0 2rem;
+  }
+
   .nav-desktop {
     display: flex;
+    grid-area: nav;
+    justify-self: start;
+  }
+
+  .logo {
+    grid-area: logo;
+    justify-self: center;
+    margin: 0; /* Remove any default margins */
+  }
+
+  .phone {
+    display: block;
+    grid-area: phone;
+    justify-self: end;
+    border-radius: 3px;
+    background-color: var(--secondary-color);
+    padding: 0.3rem 0.7rem;
+    font-weight: bold;
+  }
+
+  .phone a {
+    text-decoration: none;
+    color: var(--primary-color);
+  }
+
+  .phone-icon {
+    margin-left: 5px;
+    color: var(--primary-color);
   }
 
   .bm-burger-button {
@@ -79,23 +121,12 @@ header {
   .bm-menu-wrap {
     display: none !important;
   }
-  .logo {
-    order: 2;
-  }
-  .phone {
-    display: block;
-    border-radius: 3px;
-    background-color: var(--secondary-color);
-    padding: 0.3rem 0.7rem;
-    font-weight: bold;
-    order: 3;
-  }
-  .phone a {
-    text-decoration: none;
-    color: var(--primary-color);
-  }
-  .phone-icon {
-    margin-left: 5px;
-    color: var(--primary-color);
+}
+
+/* Optional: For larger screens, you might want more spacing */
+@media (min-width: 1024px) {
+  .navbar-container {
+    padding: 0 3rem;
+    gap: 3rem;
   }
 }
