@@ -17,12 +17,12 @@ function Navbar() {
             Accueil
           </NavLink>
           <NavLink to="/services">Services</NavLink>
-          <NavLink to="/about">À propos</NavLink>
+          <NavLink to="/a propos">À propos</NavLink>
           <NavLink to="/contact">Contact</NavLink>
         </nav>
 
         <div className="phone">
-          <a href="tel:+33xxxxxxxx" className="phone-link">
+          <a href="tel:+33xxxxxxx" className="phone-link">
             <span className="phone-number">+33 xxxxxxx</span>
             <span className="phone-icon">
               <FaPhoneAlt />
