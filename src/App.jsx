@@ -9,8 +9,15 @@ function App() {
       <Navbar />
       <Outlet />
       <footer>
-        <p> {new Date().getFullYear()} konet</p>
+        <p className="copyright">
+          {" "}
+          © {new Date().getFullYear()}{" "}
+          <span className="footer-logo">KONET</span> <br />
+          since 20xx
+        </p>
         <p>
+          <span className="footer-email">Contact us:</span>{" "}
+          <a href="tel:+33xxxxxxx">+33 xxxxxxx</a> |{" "}
           <a href="mailto:K7G7L@example.com">K7G7L@example.com</a>
         </p>
       </footer>
