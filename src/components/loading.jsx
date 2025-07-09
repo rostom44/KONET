@@ -1,7 +1,12 @@
-import React from "react";
+import { FaSpinner } from "react-icons/fa";
 
-function loading() {
-  return <div></div>;
+function Loading() {
+  return (
+    <div className="loading">
+      <FaSpinner className="spinner" />
+      <p>Chargement en cours...</p>
+    </div>
+  );
 }
 
-export default loading;
+export default Loading;
