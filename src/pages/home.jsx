@@ -19,6 +19,16 @@ function home() {
         qui sommes-nous ?
       </h2>
       <About />
+      <h2
+        style={{
+          textAlign: "center",
+          textTransform: "capitalize",
+          fontSize: "2rem",
+          margin: "2rem",
+        }}
+      >
+        nous services ?
+      </h2>
     </div>
   );
 }
