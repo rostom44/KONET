@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 
 const images = [
-  "/assets/clean1.jpg",
+  "/assets/clean1.avif",
   "/assets/clean2.jpg",
   "/assets/clean3.jpg",
   "/assets/clean4.jpg",
@@ -103,6 +103,7 @@ function About() {
               <img
                 src={img}
                 alt={`clean${idx + 1}`}
+                loading="lazy"
                 onError={(e) => {
                   // Fallback for missing images
                   e.target.style.backgroundColor = "#f0f0f0";
