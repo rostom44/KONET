@@ -254,7 +254,7 @@
   top: 0;
   left: 0;
   opacity: 0;
-  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .slide.active {
@@ -265,7 +265,7 @@
 }
 
 .slide.anim {
-  animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes fadeIn {
@@ -408,7 +408,7 @@
   }
 
   .slideshow {
-    height: 400px;
+    height: 450px;
   }
 
   .slideshow-container {
@@ -420,12 +420,12 @@
 @media (min-width: 1440px) {
   .about {
     max-width: 1600px;
-    width: calc(100% - 10rem);
+    width: calc(100% - 12rem);
     margin: 3rem auto;
   }
 
   .slideshow {
-    height: 450px;
+    height: 550px;
   }
 }
 
