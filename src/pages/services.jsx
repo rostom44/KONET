@@ -1,4 +1,3 @@
-// pages/services.jsx
 import { useEffect, useState } from "react";
 import Loading from "../components/loading.jsx";
 import servicesData from "../data/service.json";
