@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 
 const images = [
   "/assets/clean1.avif",
-  "/assets/clean2.jpg",
+  "/assets/clean2.avif",
   "/assets/clean3.jpg",
   "/assets/clean4.jpg",
 ];

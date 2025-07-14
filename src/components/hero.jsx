@@ -17,13 +17,22 @@ function Hero() {
           <br />
           nous offrons divers services pour nettoyer ce dont vous avez besoin
         </div>
-        <div className="hero-buttons">
+        <span className="priority-text mobile-priority">
+          Notre Priorité c'est Votre Propreté
+        </span>
+        <div className="hero-buttons mobile-buttons">
           <button className="hero-btn">services</button>
-          <span className="priority-text">
-            Notre Priorité c'est Votre Propreté
-          </span>
           <button className="hero-btn">contact us</button>
         </div>
+      </div>
+
+      {/* Desktop buttons - outside hero-content */}
+      <div className="hero-buttons desktop-buttons">
+        <button className="hero-btn">services</button>
+        <span className="priority-text desktop-priority">
+          Notre Priorité c'est Votre Propreté
+        </span>
+        <button className="hero-btn">contact us</button>
       </div>
     </div>
   );
