@@ -6,7 +6,6 @@
   height: 100vh;
   min-height: 100vh;
   overflow: hidden;
-  /* background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), */
   background-image: url("/assets/clean1.avif");
   background-size: cover;
   background-position: center;
@@ -65,13 +64,49 @@
   text-transform: lowercase;
 }
 
-.hero-buttons {
+.mobile-priority {
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+.desktop-priority {
+  display: none;
+}
+
+.mobile-buttons {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   width: 100%;
   max-width: 600px;
   align-items: flex-start;
+}
+
+/* Make mobile buttons side by side and equal width */
+@media (max-width: 480px), (max-width: 768px) {
+  .mobile-buttons {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mobile-buttons .hero-btn {
+    flex: 1;
+    width: auto;
+    max-width: none;
+  }
+}
+
+.desktop-buttons {
+  display: none;
+  position: absolute;
+  bottom: 2rem;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: 0 2rem;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .hero-btn {
@@ -107,6 +142,26 @@
 
 /* Tablet styles */
 @media (min-width: 768px) {
+  .mobile-priority {
+    display: none;
+  }
+
+  .mobile-buttons {
+    display: none;
+  }
+
+  .desktop-buttons {
+    display: flex;
+    padding: 0 3rem;
+  }
+
+  .desktop-priority {
+    display: block;
+    flex: 1;
+    text-align: center;
+    margin: 0 2rem;
+  }
+
   .hero-content {
     padding: 3rem;
     max-width: 70%;
@@ -119,44 +174,42 @@
   .hero-subtitle {
     margin-bottom: 3rem;
   }
-
-  .hero-buttons {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 2rem;
-  }
-
-  .priority-text {
-    flex: 1;
-    text-align: center;
-    margin: 0 1rem;
-  }
 }
 
 /* Desktop styles */
 @media (min-width: 1024px) {
+  .hero {
+    background-image: url("/assets/clean2.avif");
+  }
+  .desktop-buttons {
+    padding: 0 4rem;
+  }
+
+  .desktop-priority {
+    margin: 0 3rem;
+  }
+
   .hero-content {
     padding: 4rem;
     max-width: 60%;
-  }
-
-  .hero-buttons {
-    gap: 3rem;
   }
 
   .hero-btn {
     padding: 1rem 3rem;
     min-width: 160px;
   }
-
-  .priority-text {
-    margin: 0 2rem;
-  }
 }
 
 /* Large desktop styles */
 @media (min-width: 1440px) {
+  .desktop-buttons {
+    padding: 0 5rem;
+  }
+
+  .desktop-priority {
+    margin: 0 4rem;
+  }
+
   .hero-content {
     padding: 5rem;
     max-width: 55%;
@@ -168,10 +221,6 @@
 
   .hero-subtitle {
     margin-bottom: 3.5rem;
-  }
-
-  .hero-buttons {
-    gap: 4rem;
   }
 }
 
@@ -196,8 +245,10 @@
 
   .hero-btn {
     padding: 0.75rem 2rem;
-    width: 100%;
-    max-width: 200px;
+    /* Remove width 100% and max-width 200px to allow side by side */
+    width: auto;
+    max-width: none;
+    flex: 1;
   }
 
   .priority-text {
