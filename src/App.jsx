@@ -2,11 +2,13 @@ import { Outlet } from "react-router-dom";
 
 import "./styles/App.css";
 import Navbar from "./components/navbar.jsx";
+import LocationChecker from "./components/location";
 
 function App() {
   return (
     <main>
       <Navbar />
+      <LocationChecker />
       <Outlet />
       <footer>
         <p className="copyright">
