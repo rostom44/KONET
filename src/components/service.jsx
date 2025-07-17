@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import Loading from "../components/loading.jsx";
+import { NavLink } from "react-router-dom";
+
 import servicesData from "../data/service.json";
 
 function Service() {
@@ -38,14 +39,19 @@ function Service() {
   }, [services]);
 
   return (
-    <div className="services-list">
-      {visibleServices.map(({ id, name, icon, description }) => (
-        <div className="service-card" key={id}>
-          <h3>{name}</h3>
-          <div className="service-icon">{icon}</div>
-          <p>{description}</p>
-        </div>
-      ))}
+    <div className="services-container" style={{ textAlign: "center" }}>
+      <div className="services-list">
+        {visibleServices.map(({ id, name, icon, description }) => (
+          <div className="service-card" key={id}>
+            <h3>{name}</h3>
+            <div className="service-icon">{icon}</div>
+            <p>{description}</p>
+          </div>
+        ))}
+      </div>
+      <NavLink to="/services" className="see-services">
+        voir tout les Services
+      </NavLink>
     </div>
   );
 }

@@ -1,0 +1,103 @@
+/* Location Checker Modal & SweetAlert2 Custom Styles */
+.swal2-location-popup {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  border-radius: 14px;
+  max-width: 420px;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 0 0 1.5em 0;
+  border: 3px solid var(--border-color, #2196f3);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  /* Prevent modal from exceeding viewport width */
+  max-width: min(420px, 100vw);
+  overflow-x: auto;
+}
+
+.swal2-title {
+  font-size: 1.3rem !important;
+  color: #333 !important;
+}
+
+.swal2-html-container {
+  font-size: 1.05em !important;
+  color: #444 !important;
+  margin-top: 0.5em !important;
+}
+
+.swal2-popup .swal2-input {
+  border-radius: 8px;
+  border: 2px solid #ddd;
+  font-size: 1em;
+  padding: 0.7em 1em;
+  margin: 0.5em 0 0.5em 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.swal2-popup .swal2-input:focus {
+  border-color: #4caf50;
+  outline: none;
+}
+
+/* Make both confirm and cancel buttons same size and secondary color */
+.swal2-styled.swal2-confirm,
+.swal2-styled.swal2-cancel {
+  background: var(--secondary-color, #2196f3) !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  font-size: 1em !important;
+  padding: 0.7em 1.5em !important;
+  margin-top: 1em !important;
+  min-width: 120px;
+  border: none !important;
+  box-shadow: none !important;
+  transition: background 0.2s;
+}
+.swal2-styled.swal2-confirm:hover,
+.swal2-styled.swal2-cancel:hover {
+  background: #1769aa !important;
+}
+
+.swal2-actions {
+  display: flex !important;
+  justify-content: space-between !important;
+  gap: 1em !important;
+}
+
+/* Force allow scrolling on body and html when modal is open */
+body,
+html {
+  overflow-y: auto !important;
+  overscroll-behavior: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+}
+
+/* Remove overlay so user can interact with the website and allow scrolling */
+.swal2-container {
+  background: transparent !important;
+  pointer-events: none;
+  position: static !important;
+  overflow: visible !important;
+}
+.swal2-popup {
+  pointer-events: auto;
+}
+
+/* Remove loader spinner style */
+.swal2-loader {
+  display: none !important;
+}
+
+@media (max-width: 600px) {
+  .swal2-location-popup {
+    max-width: 98vw;
+    padding: 0 0 1em 0;
+  }
+  .swal2-html-container {
+    font-size: 0.98em !important;
+  }
+}
