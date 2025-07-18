@@ -59,7 +59,7 @@
 }
 
 .konet {
-  color: #4caf50;
+  color: var(--accent-color);
   font-weight: 700;
   text-transform: lowercase;
 }
@@ -335,7 +335,7 @@
 }
 
 .about h2 span {
-  color: #4caf50;
+  color: var(--accent-color);
 }
 
 .slideshow-container {
