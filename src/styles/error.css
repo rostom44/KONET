@@ -1,0 +1,306 @@
+.error-page {
+  min-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2.5rem 2rem 2.5rem 2rem;
+  text-align: center;
+}
+
+.error-animation {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.error-icon {
+  color: var(--secondary-color, #e63946);
+  margin-bottom: 1rem;
+  animation: simpleFade 4s ease-in-out infinite;
+}
+
+.error-title {
+  font-size: 6rem;
+  font-weight: 900;
+  color: var(--secondary-color, #e63946);
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
+  margin: 0;
+  background: linear-gradient(45deg, #e63946, #ff6b6b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.error-content {
+  max-width: 500px;
+  margin-bottom: 1rem;
+}
+
+.error-subtitle {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.error-message {
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+.error-search {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 1rem;
+  display: none;
+}
+
+.search-container {
+  display: flex;
+  gap: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 2rem;
+  padding: 0.5rem;
+  border: 2px solid #e9ecef;
+  transition: border-color 0.2s;
+}
+
+.search-container:focus-within {
+  border-color: var(--secondary-color, #e63946);
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  outline: none;
+}
+
+.search-button {
+  background: var(--secondary-color, #e63946);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.search-button:hover {
+  transform: scale(1.1);
+}
+
+.error-suggestions {
+  margin-bottom: 1.5rem;
+}
+
+.suggestions-title {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 0.8rem;
+}
+
+.suggestions-links {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.suggestion-link {
+  background: #f8f9fa;
+  color: #333;
+  border: 3px solid #e9ecef;
+  padding: 0.8rem 1.5rem;
+  border-radius: 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.suggestion-link:hover {
+  background: var(--secondary-color, #e63946);
+  color: white;
+  border-color: var(--secondary-color, #e63946);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(230, 57, 70, 0.2);
+}
+
+.error-options {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 2.5rem 0 2.5rem 0;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: auto;
+}
+
+.error-link {
+  background: var(--secondary-color, #e63946);
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  min-height: 44px;
+  flex-shrink: 0;
+}
+
+.error-link:hover {
+  background: #fff;
+  color: var(--secondary-color, #e63946);
+  border: 2px solid var(--secondary-color, #e63946);
+  transform: translateY(-1px) translateZ(0);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Remove the primary class styling to make all buttons consistent */
+.error-link.primary {
+  background: var(--secondary-color, #e63946);
+}
+
+.error-link.primary:hover {
+  background: #fff;
+  color: var(--secondary-color, #e63946);
+  border: 2px solid var(--secondary-color, #e63946);
+}
+
+.error-link.secondary {
+  background: var(--secondary-color, #e63946);
+}
+
+.error-link.secondary:hover {
+  background: #fff;
+  color: var(--secondary-color, #e63946);
+  border: 2px solid var(--secondary-color, #e63946);
+}
+
+/* Simple bounce animation for error options */
+.error-options .error-link {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.error-options .error-link:hover {
+  animation: bounceOption 0.4s;
+}
+
+@keyframes bounceOption {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.08, 0.95);
+  }
+  50% {
+    transform: scale(0.96, 1.04);
+  }
+  70% {
+    transform: scale(1.03, 0.98);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.error-help {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e9ecef;
+  max-width: 400px;
+}
+
+.help-text {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.help-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.help-link {
+  color: var(--secondary-color, #e63946);
+  text-decoration: none;
+  font-size: 0.9rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.help-link:hover {
+  color: #c02b39;
+  text-decoration: underline;
+}
+
+.help-separator {
+  color: #ccc;
+  font-size: 0.8rem;
+}
+
+/* Simple fade animation */
+@keyframes simpleFade {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Disable animations on devices that prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .error-icon {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .error-page {
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+
+  .error-title {
+    font-size: 4rem;
+  }
+
+  .error-subtitle {
+    font-size: 1.5rem;
+  }
+
+  .error-options {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .error-link {
+    width: 200px;
+    text-align: center;
+  }
+}
