@@ -26,7 +26,7 @@ header {
 
 .nav-desktop a {
   text-decoration: none;
-  color: var(--accent-color);
+  color: black;
 }
 
 .nav-desktop a.active {

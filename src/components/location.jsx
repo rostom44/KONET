@@ -2,6 +2,13 @@ import { useEffect } from "react";
 import Swal from "sweetalert2";
 import "../styles/location-modal.css";
 
+// Input sanitization
+function sanitizeInput(input) {
+  return input.replace(
+    /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
+    ""
+  );
+}
 function getCurrentLocation() {
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) {
@@ -163,7 +170,7 @@ function LocationCheckerModal() {
     // Show consent modal in bottom-right
     Swal.fire({
       title: "Zone d'intervention",
-      html: `<div style='text-align:left;'>Nous intervenons dans un rayon de <b>30km autour de Lyon</b>.<br>Souhaitez-vous vérifier automatiquement si vous êtes dans notre secteur?</div>`,
+      html: `<div style='text-align:left;'>Nous intervenons dans un rayon de <b>30km autour de Lyon</b>.<br>Souhaitez-vous vérifier automatiquement si vous êtes dans notre secteur?<br><span style='color:#d32f2f;font-size:0.97em;display:block;margin-top:0.9em;'>Votre emplacement reste privé sur votre appareil uniquement</span></div>`,
       icon: "question",
       showCancelButton: true,
       confirmButtonText: "Oui, vérifier",
@@ -297,17 +304,21 @@ function LocationCheckerModal() {
   }, []);
 
   function handleCityCheck(cityName) {
-    if (!cityName) {
+    const sanitizedCity = sanitizeInput(cityName);
+    if (!sanitizedCity) {
       showResult("error", "Veuillez saisir le nom de votre ville");
       return;
     }
-    if (isKnownArea(cityName)) {
+    if (isKnownArea(sanitizedCity)) {
       localStorage.setItem("locationChecked", "1");
-      showResult("success", `✅ Excellent ! Nous intervenons à ${cityName}.`);
+      showResult(
+        "success",
+        `✅ Excellent ! Nous intervenons à ${sanitizedCity}.`
+      );
     } else {
       showResult(
         "warning",
-        `⚠️ Nous n'avons pas pu vérifier automatiquement "${cityName}".`,
+        `⚠️ Nous n'avons pas pu vérifier automatiquement "${sanitizedCity}".`,
         `<br><strong>Appelez-nous au ${CONFIG.PHONE}</strong> pour confirmer votre secteur.<br><small>Nous intervenons dans un rayon de 30km autour de Lyon.</small>`
       );
     }

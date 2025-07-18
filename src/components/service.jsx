@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { FaArrowRight } from "react-icons/fa";
 
 import servicesData from "../data/service.json";
 
@@ -51,6 +52,7 @@ function Service() {
       </div>
       <NavLink to="/services" className="see-services">
         voir tout les Services
+        <FaArrowRight />
       </NavLink>
     </div>
   );
