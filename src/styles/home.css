@@ -634,6 +634,7 @@
 
 .see-services {
   display: inline-block;
+
   margin-top: 1rem;
   padding: 0.5rem 1.5rem;
   color: var(--secondary-color);
@@ -648,6 +649,12 @@
 
 .see-services:hover {
   transform: scale(1.1);
+}
+
+.see-services > svg {
+  position: relative;
+  top: 5px;
+  margin-left: 0.5rem;
 }
 
 @media (min-width: 600px) {
