@@ -42,6 +42,28 @@ header {
   z-index: 1001; /* Ensure button is above the circle */
 }
 
+/* Make the actual clickable element fill the entire button area */
+.react-burger-menu-btn {
+  width: 45px !important;
+  height: 45px !important;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  position: absolute !important;
+  top: -12.5px !important; /* Center the 45px button over the 20px bars */
+  left: -10px !important; /* Center the 45px button over the 25px bars */
+  z-index: 1002 !important;
+}
+
+/* Ensure the burger bars stay centered */
+.bm-burger-bars {
+  background: #000000;
+  position: relative;
+  z-index: 1003;
+  pointer-events: none; /* Make bars non-clickable so clicks go to the button */
+}
+
 /* Add circle background for mobile burger button */
 .bm-burger-button::before {
   content: "";
@@ -53,14 +75,15 @@ header {
   height: 45px;
   background-color: var(--primary-color);
   border-radius: 50%;
-  z-index: -1; /* Behind the button */
-  opacity: 0; /* Hidden at top of page */
+  z-index: -1;
+  opacity: 0;
   box-shadow:
     0 4px 12px rgba(0, 0, 0, 0.15),
     0 2px 6px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(0, 0, 0, 0.1);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
 }
 
 /* Circle appears when scrolling */
