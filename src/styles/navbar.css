@@ -39,10 +39,48 @@ header {
   height: 20px;
   right: 20px;
   top: 20px;
+  z-index: 1001; /* Ensure button is above the circle */
+}
+
+/* Add circle background for mobile burger button */
+.bm-burger-button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 45px;
+  height: 45px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  z-index: -1; /* Behind the button */
+  opacity: 0; /* Hidden at top of page */
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    0 2px 6px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Circle appears when scrolling */
+.navbar-container.scrolled .bm-burger-button::before {
+  opacity: 1;
+}
+
+/* Enhanced hover effect for the circle */
+.bm-burger-button:hover::before {
+  transform: translate(-50%, -50%) scale(1.05);
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.2),
+    0 3px 10px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .bm-burger-bars {
   background: #000000;
+  position: relative;
+  z-index: 1; /* Ensure bars are above the circle */
 }
 
 /* Slide menu */
@@ -115,6 +153,11 @@ header {
   }
 
   .bm-burger-button {
+    display: none;
+  }
+
+  /* Hide the circle background on desktop */
+  .bm-burger-button::before {
     display: none;
   }
 
