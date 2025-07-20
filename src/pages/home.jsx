@@ -1,8 +1,7 @@
-import React from "react";
 import Hero from "../components/hero";
 import About from "../components/about";
 import Services from "../components/service";
-
+import BackToTop from "../components/BackToTop";
 import "../styles/home.css";
 
 function home() {
@@ -31,6 +30,7 @@ function home() {
         nous services ?
       </h2>
       <Services />
+      <BackToTop />
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-
 import Loading from "../components/loading.jsx";
 import Card from "../components/card.jsx";
 import servicesData from "../data/service.json";
+import BackToTop from "../components/BackToTop";
 import "../styles/services.css";
 
 function Services() {
@@ -75,6 +75,7 @@ function Services() {
           />
         ))}
       </div>
+      <BackToTop />
     </section>
   );
 }
