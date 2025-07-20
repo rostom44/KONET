@@ -67,24 +67,39 @@
   gap: 1em !important;
 }
 
-/* Force allow scrolling on body and html when modal is open */
-body,
-html {
-  overflow-y: auto !important;
-  overscroll-behavior: auto !important;
-  height: auto !important;
-  padding: 0 !important;
+/* Keep the overlay but make it transparent and non-blocking */
+.swal2-container {
+  background: rgba(0, 0, 0, 0) !important;
+  pointer-events: none !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 1060 !important;
 }
 
-/* Remove overlay so user can interact with the website and allow scrolling */
-.swal2-container {
-  background: transparent !important;
-  pointer-events: none;
-  position: static !important;
-  overflow: visible !important;
-}
 .swal2-popup {
-  pointer-events: auto;
+  pointer-events: auto !important;
+  position: fixed !important;
+}
+
+/* Specific positioning for bottom-right modals */
+.swal2-bottom-right {
+  position: fixed !important;
+  right: 2vw !important;
+  bottom: 2vh !important;
+  left: auto !important;
+  top: auto !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+}
+
+/* Prevent body scroll lock */
+body.swal2-shown,
+html.swal2-shown {
+  overflow: auto !important;
+  padding-right: 0 !important;
 }
 
 /* Remove loader spinner style */
@@ -99,5 +114,10 @@ html {
   }
   .swal2-html-container {
     font-size: 0.98em !important;
+  }
+
+  .swal2-bottom-right {
+    right: 1vw !important;
+    bottom: 1vh !important;
   }
 }
