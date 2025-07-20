@@ -49,7 +49,7 @@ function Card({
         <p>{service.content || "Plus de détails à venir..."}</p>
         {service.hint && (
           <div className="service-hint">
-            <span>hint :</span> {service.hint}
+            <span>remarque :</span> {service.hint}
           </div>
         )}
       </div>
