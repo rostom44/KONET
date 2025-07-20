@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import Swal from "sweetalert2";
 import "../styles/location-modal.css";
+import {
+  CITY_DISPLAY_NAMES,
+  QUICK_CITIES,
+  KNOWN_AREAS,
+} from "../data/cities.js";
 
 // Input sanitization
 function sanitizeInput(input) {
@@ -56,8 +61,8 @@ function showResult(type, message, actions = "") {
   });
 }
 
-function isKnownArea(cityName) {
-  const normalized = cityName
+function normalizeString(str) {
+  return str
     .toLowerCase()
     .replace(/[àáâãäå]/g, "a")
     .replace(/[èéêë]/g, "e")
@@ -65,13 +70,61 @@ function isKnownArea(cityName) {
     .replace(/[òóôõö]/g, "o")
     .replace(/[ùúûü]/g, "u")
     .replace(/[ç]/g, "c")
-    .replace(/[^a-z]/g, "");
-  return KNOWN_AREAS.some(
-    (area) =>
-      normalized.includes(area) ||
-      area.includes(normalized) ||
-      normalized === area
-  );
+    .replace(/[^a-z0-9]/g, "");
+}
+
+function isKnownArea(cityName) {
+  const normalized = normalizeString(cityName);
+  if (normalized.length < 2) return false;
+  // Only accept exact matches
+  return KNOWN_AREAS.some((area) => {
+    const normalizedArea = normalizeString(area);
+    return normalizedArea === normalized;
+  });
+}
+
+function fuzzyMatch(input, target, threshold = 0.6) {
+  const normalizedInput = normalizeString(input);
+  const normalizedTarget = normalizeString(target);
+
+  if (normalizedInput === normalizedTarget) return 1;
+  if (normalizedTarget.includes(normalizedInput)) return 0.9;
+  if (normalizedInput.includes(normalizedTarget)) return 0.8;
+
+  // Simple character similarity
+  const longer =
+    normalizedInput.length > normalizedTarget.length
+      ? normalizedInput
+      : normalizedTarget;
+  const shorter =
+    normalizedInput.length > normalizedTarget.length
+      ? normalizedTarget
+      : normalizedInput;
+
+  if (longer.length === 0) return 1;
+
+  let matches = 0;
+  for (let i = 0; i < shorter.length; i++) {
+    if (longer.includes(shorter[i])) matches++;
+  }
+
+  const similarity = matches / longer.length;
+  return similarity >= threshold ? similarity : 0;
+}
+
+function getSuggestions(input) {
+  if (input.length < 2) return [];
+
+  const suggestions = CITY_DISPLAY_NAMES.map((city) => ({
+    name: city,
+    score: fuzzyMatch(input, city),
+  }))
+    .filter((item) => item.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 8)
+    .map((item) => item.name);
+
+  return suggestions;
 }
 
 function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -90,65 +143,10 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 
 const CONFIG = {
   LYON_CENTER: { lat: 45.7578, lng: 4.832 },
-  SERVICE_RADIUS_KM: 30,
+  SERVICE_RADIUS_KM: 20,
   PHONE: "04 XX XX XX XX",
   CONTACT_URL: "/contact",
 };
-
-const QUICK_CITIES = [
-  "Lyon",
-  "Villeurbanne",
-  "Caluire-et-Cuire",
-  "Bron",
-  "Vénissieux",
-  "Saint-Fons",
-  "Oullins",
-  "Écully",
-  "Tassin-la-Demi-Lune",
-];
-
-const KNOWN_AREAS = [
-  "lyon",
-  "villeurbanne",
-  "caluire",
-  "bron",
-  "vénissieux",
-  "saint-fons",
-  "feyzin",
-  "oullins",
-  "pierre-bénite",
-  "sainte-foy-lès-lyon",
-  "écully",
-  "champagne-au-mont-d'or",
-  "collonges-au-mont-d'or",
-  "rillieux-la-pape",
-  "vaulx-en-velin",
-  "décines-charpieu",
-  "meyzieu",
-  "chassieu",
-  "saint-priest",
-  "mions",
-  "corbas",
-  "givors",
-  "grigny",
-  "ternay",
-  "condrieu",
-  "ampuis",
-  "chaponost",
-  "brignais",
-  "mornant",
-  "saint-genis-laval",
-  "francheville",
-  "tassin-la-demi-lune",
-  "craponne",
-  "charbonnières-les-bains",
-  "dardilly",
-  "limonest",
-  "saint-didier-au-mont-d'or",
-  "fontaines-sur-saône",
-  "neuville-sur-saône",
-  "trévoux",
-];
 
 function LocationCheckerModal() {
   useEffect(() => {
@@ -170,7 +168,7 @@ function LocationCheckerModal() {
     // Show consent modal in bottom-right
     Swal.fire({
       title: "Zone d'intervention",
-      html: `<div style='text-align:left;'>Nous intervenons dans un rayon de <b>30km autour de Lyon</b>.<br>Souhaitez-vous vérifier automatiquement si vous êtes dans notre secteur?<br><span style='color:#d32f2f;font-size:0.97em;display:block;margin-top:0.9em;'>Votre emplacement reste privé sur votre appareil uniquement</span></div>`,
+      html: `<div style='text-align:left;'>Nous intervenons dans un rayon de <b>20km autour de Lyon</b>.<br>Souhaitez-vous vérifier automatiquement si vous êtes dans notre secteur?<br><span style='color:#d32f2f;font-size:0.97em;display:block;margin-top:0.9em;'>Votre emplacement reste privé sur votre appareil uniquement</span></div>`,
       icon: "question",
       showCancelButton: true,
       confirmButtonText: "Oui, vérifier",
@@ -238,7 +236,10 @@ function LocationCheckerModal() {
                 html: `
                   <div style='margin-bottom:1em;color:#856404;'>⚠️ ${e.message}<br><small>Veuillez sélectionner votre ville manuellement ci-dessous.</small></div>
                   <label for='swal2-city-input'>Saisissez votre ville :</label>
-                  <input id='swal2-city-input' class='swal2-input' placeholder='ex: Villeurbanne, Lyon 3ème...'>
+                  <div style='position:relative;'>
+                    <input id='swal2-city-input' class='swal2-input' placeholder='ex: Villeurbanne, Lyon 3ème...' autocomplete='off'>
+                    <div id='swal2-suggestions' style='position:absolute;top:100%;left:0;right:0;background:white;border:1px solid #ddd;border-top:none;max-height:200px;overflow-y:auto;z-index:1000;display:none;'></div>
+                  </div>
                   <button id='swal2-city-check' class='swal2-confirm swal2-styled' style='margin-top:0.5em;'>Vérifier</button>
                   <div style='margin:1em 0 0.5em 0;'>Ou sélectionnez directement :</div>
                   <div id='swal2-quick-cities' style='display:flex;flex-wrap:wrap;gap:0.5em;'></div>
@@ -265,7 +266,14 @@ function LocationCheckerModal() {
                     btn.style.background = "#e9ecef";
                     btn.style.color = "#333";
                     btn.style.fontWeight = "500";
-                    btn.onclick = () => handleCityCheck(city);
+                    btn.onclick = () => {
+                      const cityInput =
+                        document.getElementById("swal2-city-input");
+                      if (cityInput) cityInput.value = city;
+                      const suggestionsDiv =
+                        document.getElementById("swal2-suggestions");
+                      if (suggestionsDiv) suggestionsDiv.style.display = "none";
+                    };
                     quickCitiesDiv.appendChild(btn);
                   });
                 }
@@ -281,13 +289,114 @@ function LocationCheckerModal() {
                 }
                 // Enter key (use onkeydown instead of deprecated onkeypress)
                 const cityInput = document.getElementById("swal2-city-input");
-                if (cityInput) {
-                  cityInput.onkeydown = (e) => {
-                    if (e.key === "Enter") {
-                      const city = e.target.value.trim();
-                      handleCityCheck(city);
+                const suggestionsDiv =
+                  document.getElementById("swal2-suggestions");
+
+                if (cityInput && suggestionsDiv) {
+                  let selectedSuggestionIndex = -1;
+
+                  cityInput.oninput = (e) => {
+                    const value = e.target.value.trim();
+                    const suggestions = getSuggestions(value);
+                    selectedSuggestionIndex = -1;
+
+                    if (suggestions.length > 0 && value.length >= 2) {
+                      suggestionsDiv.innerHTML = suggestions
+                        .map(
+                          (suggestion, index) =>
+                            `<div class='suggestion-item' data-index='${index}' style='padding:8px 12px;cursor:pointer;border-bottom:1px solid #eee;' onmouseover='this.style.background="#f0f0f0"' onmouseout='this.style.background="white"'>${suggestion}</div>`
+                        )
+                        .join("");
+                      suggestionsDiv.style.display = "block";
+
+                      // Add click handlers to suggestions
+                      suggestions.forEach((suggestion, index) => {
+                        const item = suggestionsDiv.querySelector(
+                          `[data-index='${index}']`
+                        );
+                        if (item) {
+                          item.onclick = () => {
+                            // Always get fresh input and suggestionsDiv
+                            const cityInputEl =
+                              document.getElementById("swal2-city-input");
+                            const suggestionsDivEl =
+                              document.getElementById("swal2-suggestions");
+                            if (cityInputEl) cityInputEl.value = suggestion;
+                            if (suggestionsDivEl)
+                              suggestionsDivEl.style.display = "none";
+                            // Do not call handleCityCheck here; let user confirm
+                          };
+                        }
+                      });
+                    } else {
+                      suggestionsDiv.style.display = "none";
                     }
                   };
+
+                  cityInput.onkeydown = (e) => {
+                    const suggestions =
+                      suggestionsDiv.querySelectorAll(".suggestion-item");
+
+                    if (e.key === "ArrowDown") {
+                      e.preventDefault();
+                      selectedSuggestionIndex = Math.min(
+                        selectedSuggestionIndex + 1,
+                        suggestions.length - 1
+                      );
+                      updateSuggestionSelection(
+                        suggestions,
+                        selectedSuggestionIndex
+                      );
+                    } else if (e.key === "ArrowUp") {
+                      e.preventDefault();
+                      selectedSuggestionIndex = Math.max(
+                        selectedSuggestionIndex - 1,
+                        -1
+                      );
+                      updateSuggestionSelection(
+                        suggestions,
+                        selectedSuggestionIndex
+                      );
+                    } else if (e.key === "Enter") {
+                      e.preventDefault();
+                      if (
+                        selectedSuggestionIndex >= 0 &&
+                        suggestions[selectedSuggestionIndex]
+                      ) {
+                        const selectedText =
+                          suggestions[selectedSuggestionIndex].textContent;
+                        cityInput.value = selectedText;
+                        suggestionsDiv.style.display = "none";
+                        handleCityCheck(selectedText);
+                      } else {
+                        const city = e.target.value.trim();
+                        suggestionsDiv.style.display = "none";
+                        handleCityCheck(city);
+                      }
+                    } else if (e.key === "Escape") {
+                      suggestionsDiv.style.display = "none";
+                      selectedSuggestionIndex = -1;
+                    }
+                  };
+
+                  cityInput.onblur = () => {
+                    // Delay hiding to allow clicking on suggestions
+                    setTimeout(() => {
+                      suggestionsDiv.style.display = "none";
+                    }, 150);
+                  };
+
+                  function updateSuggestionSelection(suggestions, index) {
+                    suggestions.forEach((item, i) => {
+                      if (i === index) {
+                        item.style.background = "#007bff";
+                        item.style.color = "white";
+                      } else {
+                        item.style.background = "white";
+                        item.style.color = "black";
+                      }
+                    });
+                  }
                 }
               }, 100);
             }
@@ -319,7 +428,7 @@ function LocationCheckerModal() {
       showResult(
         "warning",
         `⚠️ Nous n'avons pas pu vérifier automatiquement "${sanitizedCity}".`,
-        `<br><strong>Appelez-nous au ${CONFIG.PHONE}</strong> pour confirmer votre secteur.<br><small>Nous intervenons dans un rayon de 30km autour de Lyon.</small>`
+        `<br><strong>Appelez-nous au ${CONFIG.PHONE}</strong> pour confirmer votre secteur.<br><small>Nous intervenons dans un rayon de 20km autour de Lyon.</small>`
       );
     }
   }
