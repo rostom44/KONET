@@ -16,9 +16,9 @@
   margin-left: 16px;
   padding: 0.4em 1em;
   border-radius: 8px;
-  border: 2px solid #e53935;
+  border: 2px solid var(--secondary-color);
   background: #fff;
-  color: #e53935;
+  color: var(--secondary-color);
   font-weight: 600;
   cursor: pointer;
   font-size: 1rem;
@@ -29,10 +29,11 @@
 }
 .collapse-all-btn:hover,
 .collapse-all-btn:focus {
-  background: #e53935;
+  background: var(--secondary-color);
   color: #fff;
-  border-color: #e53935;
+  border-color: var(--secondary-color);
 }
+
 /* loading animation */
 
 .loading {
@@ -42,7 +43,7 @@
   justify-content: center;
   min-height: 60vh;
   font-weight: bold;
-  color: var(--accent-color, #e53935);
+  color: var(--accent-color, var(--secondary-color));
 }
 
 .spinner {
@@ -128,7 +129,7 @@
 .service-icon {
   width: 70px;
   height: 70px;
-  background: #e53935;
+  background: var(--secondary-color);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -159,7 +160,7 @@
 
 .service-arrow.expanded {
   transform: rotate(180deg) scale(1.1);
-  color: #e53935;
+  color: var(--secondary-color);
 }
 
 .service-details {

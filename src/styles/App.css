@@ -1,3 +1,57 @@
+/* Back to Top Button */
+.back-to-top-btn {
+  position: fixed;
+  right: 2.2rem;
+  bottom: 2.2rem;
+  z-index: 1000;
+  background: #e53935;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.13);
+  cursor: pointer;
+  transition:
+    background 0.18s,
+    box-shadow 0.18s,
+    transform 0.18s,
+    opacity 0.18s;
+  outline: none;
+  opacity: 0.45;
+}
+.back-to-top-btn.hovered,
+.back-to-top-btn:focus {
+  background: #b71c1c;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+  transform: translateY(-2px) scale(1.07);
+  opacity: 1;
+}
+.back-to-top-tooltip {
+  position: absolute;
+  right: 110%;
+  top: 50%;
+  transform: translateY(-50%) scale(0.95);
+  background: #222;
+  color: #fff;
+  padding: 0.45em 1em;
+  border-radius: 8px;
+  font-size: 1rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.18s,
+    transform 0.18s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.back-to-top-tooltip.show {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}
 main {
   display: flex;
   flex-direction: column;

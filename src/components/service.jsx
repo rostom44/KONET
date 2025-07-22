@@ -45,7 +45,9 @@ function Service() {
         {visibleServices.map(({ id, name, icon, description }) => (
           <div className="service-card" key={id}>
             <h3>{name}</h3>
-            <div className="service-icon">{icon}</div>
+            <div className="service-icon">
+              <img src={icon} alt={`${name} icon`} />
+            </div>
             <p>{description}</p>
           </div>
         ))}

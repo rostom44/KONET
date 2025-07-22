@@ -5,7 +5,7 @@
       "name": "L’Entretien des locaux",
       "description": "Maintenez vos locaux impeccables pour un environnement professionnel agréable.",
       "content": "Nous assurons un entretien régulier et minutieux de vos bureaux, salles de réunion, espaces communs et sanitaires. Nos équipes utilisent des produits adaptés à chaque surface pour garantir hygiène, sécurité et bien-être au travail.",
-      "icon": "path",
+      "icon": "/assets/icons/desk.svg",
       "hint": "Service disponible en horaires flexibles, y compris tôt le matin ou en soirée."
     },
     {
@@ -13,7 +13,7 @@
       "name": "Lavage des vitres",
       "description": "Des vitres éclatantes pour une image professionnelle impeccable.",
       "content": "Nous nettoyons vos vitres intérieures et extérieures, même en hauteur, avec des techniques sécurisées et sans traces. Idéal pour bureaux, commerces ou vitrines.",
-      "icon": "path",
+      "icon": "/assets/icons/window.svg",
       "hint": "Nettoyage programmé selon la météo pour un résultat optimal."
     },
     {
@@ -21,7 +21,7 @@
       "name": "Décapage des sols",
       "description": "Redonnez éclat et propreté à vos sols ternis par le temps.",
       "content": "Le décapage élimine les anciennes couches d’entretien et les saletés incrustées. Nous adaptons notre intervention au type de sol (carrelage, PVC, lino...) pour une remise à neuf efficace avant l'application de produits protecteurs.",
-      "icon": "path",
+      "icon": "/assets/icons/floor.svg",
       "hint": "Prévoir un temps de séchage de quelques heures après intervention."
     },
     {
@@ -29,7 +29,7 @@
       "name": "Débarrassage",
       "description": "Libérez de l’espace rapidement et sans effort.",
       "content": "Nous intervenons pour vider bureaux, entrepôts, garages ou logements. Enlèvement de meubles, équipements obsolètes ou déchets volumineux. Un service rapide, discret et propre.",
-      "icon": "path",
+      "icon": "/assets/icons/junk.svg",
       "hint": "Les objets récupérables peuvent être triés pour le recyclage ou le don."
     },
     {
@@ -37,7 +37,7 @@
       "name": "Manutention",
       "description": "Déplacez vos équipements en toute sécurité.",
       "content": "Besoin de réorganiser un espace, déplacer du matériel lourd ou installer de nouveaux équipements ? Nos agents prennent en charge la manutention avec soin et efficacité.",
-      "icon": "path",
+      "icon": "/assets/icons/boxes.svg",
       "hint": "Possibilité d’intervention le week-end pour limiter les perturbations."
     },
     {
@@ -45,7 +45,7 @@
       "name": "Déménagement",
       "description": "Un déménagement fluide et sans stress.",
       "content": "Nous planifions et réalisons votre déménagement d’entreprise ou de local professionnel : emballage, transport, déballage, tout est pris en charge pour une transition sans encombre.",
-      "icon": "path",
+      "icon": "/assets/icons/hand-truck.svg",
       "hint": "Visite technique recommandée avant intervention pour estimer les volumes."
     }
   ]
