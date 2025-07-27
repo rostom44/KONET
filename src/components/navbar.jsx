@@ -6,6 +6,7 @@ import "../styles/navbar.css";
 
 function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,6 +16,15 @@ function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleMenuStateChange = (state) => {
+    setMenuOpen(state.isOpen);
+  };
+
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+
   return (
     <header>
       <div className={`navbar-container ${isScrolled ? "scrolled" : ""}`}>
@@ -40,13 +50,34 @@ function Navbar() {
         </div>
 
         {/* Mobile burger menu */}
-        <Menu right className="nav-mobile">
-          <NavLink to="/" end>
+        <Menu
+          right
+          className="nav-mobile"
+          isOpen={menuOpen}
+          onStateChange={handleMenuStateChange}
+        >
+          <NavLink to="/" end onClick={closeMenu}>
             Accueil
           </NavLink>
-          <NavLink to="/services">Services</NavLink>
-          <NavLink to="/a propos">À propos</NavLink>
-          <NavLink to="/contact">Contact</NavLink>
+          <NavLink to="/services" onClick={closeMenu}>
+            Services
+          </NavLink>
+          <NavLink to="/a propos" onClick={closeMenu}>
+            À propos
+          </NavLink>
+          <NavLink to="/contact" onClick={closeMenu}>
+            Contact
+          </NavLink>
+
+          {/* Mobile phone section */}
+          <div className="mobile-phone-section">
+            <a href="tel:+33xxxxxxx" className="mobile-phone-button">
+              <span className="phone-number">+33 xxxxxxx</span>
+              <span className="phone-icon">
+                <FaPhoneAlt />
+              </span>
+            </a>
+          </div>
         </Menu>
       </div>
     </header>

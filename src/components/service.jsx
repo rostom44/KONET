@@ -49,6 +49,9 @@ function Service() {
               <img src={icon} alt={`${name} icon`} />
             </div>
             <p>{description}</p>
+            <NavLink to={`/services?selected=${id}`} className="voir-plus-btn">
+              voir plus
+            </NavLink>
           </div>
         ))}
       </div>
