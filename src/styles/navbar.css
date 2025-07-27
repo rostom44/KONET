@@ -111,6 +111,65 @@ header {
   background: var(--neutral-color);
   padding: 2.5em 1.5em;
   font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Style for mobile menu links */
+.bm-menu a {
+  text-decoration: none;
+  color: var(--text-color, #333);
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.bm-menu a:hover {
+  color: var(--secondary-color);
+  padding-left: 0.5rem;
+}
+
+.bm-menu a.active {
+  font-weight: bold;
+  color: var(--secondary-color);
+}
+
+/* Mobile phone section in burger menu */
+.mobile-phone-section {
+  margin-top: auto;
+  padding-top: 2rem;
+  border-top: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.mobile-phone-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: var(--secondary-color);
+  padding: 1rem 1.5rem;
+  border-radius: 3px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-phone-button,
+.mobile-phone-button .phone-number,
+.mobile-phone-button .phone-icon {
+  color: var(--primary-color);
+}
+
+.mobile-phone-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.mobile-phone-button .phone-icon {
+  margin-left: 5px;
 }
 
 /* Cross (X) button in menu */
@@ -128,6 +187,7 @@ header {
   height: 100% !important;
 }
 
+/* Hide desktop phone on mobile */
 .phone {
   display: none;
 }
@@ -186,6 +246,11 @@ header {
 
   .bm-menu-wrap {
     display: none !important;
+  }
+
+  /* Hide mobile phone section on desktop */
+  .mobile-phone-section {
+    display: none;
   }
 }
 
