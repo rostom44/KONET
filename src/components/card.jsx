@@ -28,7 +28,6 @@ function Card({
       >
         <h2>{service.name}</h2>
         <div className="service-icon">
-          {/* Replace with <img src={service.icon} alt="icon" /> if you have icons in your data */}
           {service.icon && service.icon !== "path" ? (
             <img src={service.icon} alt="icon" />
           ) : (

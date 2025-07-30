@@ -110,10 +110,6 @@ export default function ErrorPage() {
           Besoin d'aide ? Appelez-nous au <strong>04 XX XX XX XX</strong>
         </p>
         {/* 
-        <div className="help-links">
-          <button className="help-link" onClick={() => handleLinkClick('/sitemap')}>
-            Plan du site
-          </button>
           <span className="help-separator">|</span>
           <button className="help-link" onClick={() => handleLinkClick('/contact')}>
             Signaler un problème
