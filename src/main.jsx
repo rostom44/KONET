@@ -9,6 +9,7 @@ import Services from "./pages/services.jsx";
 import About from "./pages/about.jsx";
 import Contact from "./pages/contact.jsx";
 import ErrorPage from "./pages/error.jsx";
+import Conditions from "./pages/conditions.jsx";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />,
+      },
+      {
+        path: "/conditions-générales",
+        element: <Conditions />,
       },
     ],
   },

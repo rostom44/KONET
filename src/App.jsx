@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, NavLink } from "react-router-dom";
 
 import "./styles/App.css";
 import Navbar from "./components/navbar.jsx";
@@ -22,6 +22,9 @@ function App() {
           <a href="tel:+33xxxxxxx">+33 xxxxxxx</a> |{" "}
           <a href="mailto:K7G7L@example.com">K7G7L@example.com</a>
         </p>
+        <NavLink to="/conditions-générales" className="footer-link">
+          Conditions Générales
+        </NavLink>
       </footer>
     </main>
   );
