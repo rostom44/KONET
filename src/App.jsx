@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import "./styles/App.css";
 import Navbar from "./components/navbar.jsx";
 import LocationChecker from "./components/location";
+import Footer from "./components/footer";
 
 function App() {
   return (
@@ -10,19 +11,7 @@ function App() {
       <Navbar />
       <LocationChecker />
       <Outlet />
-      <footer>
-        <p className="copyright">
-          {" "}
-          © {new Date().getFullYear()}{" "}
-          <span className="footer-logo">KONET</span> <br />
-          since 20xx
-        </p>
-        <p>
-          <span className="footer-email">Contact us:</span>{" "}
-          <a href="tel:+33xxxxxxx">+33 xxxxxxx</a> |{" "}
-          <a href="mailto:K7G7L@example.com">K7G7L@example.com</a>
-        </p>
-      </footer>
+      <Footer />
     </main>
   );
 }

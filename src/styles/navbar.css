@@ -27,22 +27,28 @@ header {
 .nav-desktop a {
   text-decoration: none;
   color: black;
+  transition: color 0.3s ease;
+}
+
+.nav-desktop a:hover {
+  color: var(--secondary-color);
 }
 
 .nav-desktop a.active {
   font-weight: bold;
+  color: var(--secondary-color);
 }
 
+/* Mobile burger button */
 .bm-burger-button {
   position: fixed;
   width: 25px;
   height: 20px;
   right: 20px;
   top: 20px;
-  z-index: 1001; /* Ensure button is above the circle */
+  z-index: 1001;
 }
 
-/* Make the actual clickable element fill the entire button area */
 .react-burger-menu-btn {
   width: 45px !important;
   height: 45px !important;
@@ -51,20 +57,18 @@ header {
   cursor: pointer !important;
   padding: 0 !important;
   position: absolute !important;
-  top: -12.5px !important; /* Center the 45px button over the 20px bars */
-  left: -10px !important; /* Center the 45px button over the 25px bars */
+  top: -12.5px !important;
+  left: -10px !important;
   z-index: 1002 !important;
 }
 
-/* Ensure the burger bars stay centered */
 .bm-burger-bars {
   background: #000000;
   position: relative;
   z-index: 1003;
-  pointer-events: none; /* Make bars non-clickable so clicks go to the button */
+  pointer-events: none;
 }
 
-/* Add circle background for mobile burger button */
 .bm-burger-button::before {
   content: "";
   position: absolute;
@@ -86,12 +90,10 @@ header {
   pointer-events: none;
 }
 
-/* Circle appears when scrolling */
 .navbar-container.scrolled .bm-burger-button::before {
   opacity: 1;
 }
 
-/* Enhanced hover effect for the circle */
 .bm-burger-button:hover::before {
   transform: translate(-50%, -50%) scale(1.05);
   box-shadow:
@@ -100,13 +102,7 @@ header {
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
-.bm-burger-bars {
-  background: #000000;
-  position: relative;
-  z-index: 1; /* Ensure bars are above the circle */
-}
-
-/* Slide menu */
+/* Mobile menu */
 .bm-menu {
   background: var(--neutral-color);
   padding: 2.5em 1.5em;
@@ -116,7 +112,6 @@ header {
   gap: 1.5rem;
 }
 
-/* Style for mobile menu links */
 .bm-menu a {
   text-decoration: none;
   color: var(--text-color, #333);
@@ -135,51 +130,13 @@ header {
   color: var(--secondary-color);
 }
 
-/* Mobile phone section in burger menu */
-.mobile-phone-section {
-  margin-top: auto;
-  padding-top: 2rem;
-  border-top: 2px solid rgba(0, 0, 0, 0.1);
-}
-
-.mobile-phone-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  background-color: var(--secondary-color);
-  padding: 1rem 1.5rem;
-  border-radius: 3px;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.mobile-phone-button,
-.mobile-phone-button .phone-number,
-.mobile-phone-button .phone-icon {
-  color: var(--primary-color);
-}
-
-.mobile-phone-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.mobile-phone-button .phone-icon {
-  margin-left: 5px;
-}
-
-/* Cross (X) button in menu */
 .bm-cross-button {
   height: 24px;
   width: 24px;
 }
 
 .bm-cross {
-  background: #000000; /* Black close button */
+  background: #000000;
 }
 
 .bm-menu-wrap {
@@ -187,17 +144,68 @@ header {
   height: 100% !important;
 }
 
-/* Hide desktop phone on mobile */
-.phone {
+/* Mobile contact section */
+.mobile-contact-section {
+  margin-top: auto;
+  padding-top: 2rem;
+  border-top: 2px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.mobile-contact-button {
+  margin-bottom: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  background: linear-gradient(135deg, var(--secondary-color), #e74c3c);
+  padding: 1.2rem 1.8rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-contact-button .contact-text {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.mobile-contact-button .contact-icon {
+  color: var(--primary-color);
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+}
+
+.mobile-contact-button:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-contact-button:hover .contact-icon {
+  transform: scale(1.1);
+}
+
+/* Hide desktop contact section on mobile */
+.contact-section {
   display: none;
 }
 
-/* Media Query: Desktop view */
+/* Desktop styles */
 @media (min-width: 768px) {
   .navbar-container {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
-    grid-template-areas: "nav logo phone";
+    grid-template-areas: "nav logo contact";
     align-items: center;
     gap: 2rem;
     padding: 0 2rem;
@@ -212,34 +220,158 @@ header {
   .logo {
     grid-area: logo;
     justify-self: center;
-    margin: 0; /* Remove any default margins */
+    margin: 0;
   }
 
-  .phone {
-    display: block;
-    grid-area: phone;
+  .contact-section {
+    display: flex;
+    grid-area: contact;
     justify-self: end;
-    border-radius: 3px;
-    background-color: var(--secondary-color);
-    padding: 0.3rem 0.7rem;
-    font-weight: bold;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
   }
 
-  .phone a {
+  /* Base circle styles for both phone and email */
+  .phone-circle,
+  .email-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--secondary-color), #e74c3c);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow:
+      0 3px 12px rgba(0, 0, 0, 0.1),
+      0 1px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+  }
+
+  /* Circle icons (visible when not hovered) */
+  .phone-icon-circle,
+  .email-icon-circle {
+    font-size: 1rem;
+    color: var(--primary-color);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s ease;
+  }
+
+  /* Links inside circles */
+  .phone-link,
+  .email-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
     color: var(--primary-color);
+    width: 100%;
+    height: 100%;
+    white-space: nowrap;
+    gap: 8px;
+    font-weight: 600;
+    padding: 0 1rem;
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .phone-icon {
-    margin-left: 5px;
-    color: var(--primary-color);
+  /* Text inside links (hidden initially) */
+  .phone-text,
+  .email-text {
+    transform: translateX(15px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.95rem;
   }
 
+  /* Icons inside links */
+  .phone-icon,
+  .email-icon {
+    font-size: 0.9rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+  }
+
+  /* Hover effects for phone circle */
+  .phone-circle:hover {
+    width: 160px;
+    border-radius: 6px;
+  }
+
+  .phone-circle:hover .phone-icon-circle {
+    opacity: 0;
+  }
+
+  .phone-circle:hover .phone-link {
+    opacity: 1;
+  }
+
+  .phone-circle:hover .phone-text {
+    transform: translateX(0);
+  }
+
+  .phone-circle:hover .phone-icon {
+    transform: scale(1.1);
+  }
+
+  /* Hover effects for email circle */
+  .email-circle:hover {
+    width: 180px;
+    border-radius: 6px;
+  }
+
+  .email-circle:hover .email-icon-circle {
+    opacity: 0;
+  }
+
+  .email-circle:hover .email-link {
+    opacity: 1;
+  }
+
+  .email-circle:hover .email-text {
+    transform: translateX(0);
+  }
+
+  .email-circle:hover .email-icon {
+    transform: scale(1.1);
+  }
+
+  /* Scale down the other circle when one is hovered */
+  .phone-circle:hover + .email-circle {
+    transform: scale(0.9);
+    opacity: 0.6;
+  }
+
+  .email-circle:hover + .phone-circle {
+    transform: scale(0.9);
+    opacity: 0.6;
+  }
+
+  /* When contact section is hovered, but not directly on circles */
+  .contact-section:hover
+    .phone-circle:not(:hover):not(.email-circle:hover + *) {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  .contact-section:hover
+    .email-circle:not(:hover):not(.phone-circle:hover + *) {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  /* Hide mobile elements on desktop */
   .bm-burger-button {
     display: none;
   }
 
-  /* Hide the circle background on desktop */
   .bm-burger-button::before {
     display: none;
   }
@@ -248,16 +380,27 @@ header {
     display: none !important;
   }
 
-  /* Hide mobile phone section on desktop */
-  .mobile-phone-section {
+  .bm-overlay {
+    display: none !important;
+  }
+
+  .mobile-contact-section {
     display: none;
   }
 }
 
-/* Optional: For larger screens, you might want more spacing */
+/* Large screens */
 @media (min-width: 1024px) {
   .navbar-container {
     padding: 0 3rem;
     gap: 3rem;
+  }
+
+  .phone-circle:hover {
+    width: 180px;
+  }
+
+  .email-circle:hover {
+    width: 200px;
   }
 }
