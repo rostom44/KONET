@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { slide as Menu } from "react-burger-menu";
-import { FaPhoneAlt } from "react-icons/fa";
+import { FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import "../styles/navbar.css";
 
 function Navbar() {
@@ -23,6 +23,18 @@ function Navbar() {
 
   const closeMenu = () => {
     setMenuOpen(false);
+    // Remove focus from burger menu elements to prevent aria-hidden warning
+    setTimeout(() => {
+      const burgerButton = document.querySelector("#react-burger-cross-btn");
+      const activeElement = document.activeElement;
+      if (
+        burgerButton &&
+        activeElement &&
+        (activeElement === burgerButton || burgerButton.contains(activeElement))
+      ) {
+        activeElement.blur();
+      }
+    }, 100);
   };
 
   return (
@@ -40,13 +52,24 @@ function Navbar() {
           <NavLink to="/contact">Contact</NavLink>
         </nav>
 
-        <div className="phone">
-          <a href="tel:+33xxxxxxx" className="phone-link">
-            <span className="phone-number">+33 xxxxxxx</span>
-            <span className="phone-icon">
-              <FaPhoneAlt />
-            </span>
-          </a>
+        {/* Desktop contact section */}
+        <div className="contact-section">
+          <div className="phone">
+            <a href="tel:+33xxxxxxx" className="phone-link">
+              <span className="phone-number">+33 xxxxxxx</span>
+              <span className="phone-icon">
+                <FaPhoneAlt />
+              </span>
+            </a>
+          </div>
+          <div className="email-circle">
+            <a href="mailto:contact@konet.fr" className="email-link">
+              <span className="email-text">contact@konet.fr</span>
+              <span className="email-icon">
+                <FaEnvelope />
+              </span>
+            </a>
+          </div>
         </div>
 
         {/* Mobile burger menu */}
@@ -69,12 +92,18 @@ function Navbar() {
             Contact
           </NavLink>
 
-          {/* Mobile phone section */}
-          <div className="mobile-phone-section">
-            <a href="tel:+33xxxxxxx" className="mobile-phone-button">
-              <span className="phone-number">+33 xxxxxxx</span>
-              <span className="phone-icon">
+          {/* Mobile contact section */}
+          <div className="mobile-contact-section">
+            <a href="tel:+33xxxxxxx" className="mobile-contact-button">
+              <span className="contact-text">+33 xxxxxxx</span>
+              <span className="contact-icon">
                 <FaPhoneAlt />
+              </span>
+            </a>
+            <a href="mailto:contact@konet.fr" className="mobile-contact-button">
+              <span className="contact-text">contact@konet.fr</span>
+              <span className="contact-icon">
+                <FaEnvelope />
               </span>
             </a>
           </div>
