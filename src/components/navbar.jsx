@@ -54,7 +54,10 @@ function Navbar() {
 
         {/* Desktop contact section */}
         <div className="contact-section">
-          <div className="phone">
+          <div className="phone-circle">
+            <span className="phone-icon-circle">
+              <FaPhoneAlt />
+            </span>
             <a href="tel:+33xxxxxxx" className="phone-link">
               <span className="phone-number">+33 xxxxxxx</span>
               <span className="phone-icon">
@@ -63,6 +66,9 @@ function Navbar() {
             </a>
           </div>
           <div className="email-circle">
+            <span className="email-icon-circle">
+              <FaEnvelope />
+            </span>
             <a href="mailto:contact@konet.fr" className="email-link">
               <span className="email-text">contact@konet.fr</span>
               <span className="email-icon">
