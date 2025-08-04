@@ -21,13 +21,13 @@ header {
 .nav-desktop {
   display: none;
   gap: 2rem;
-  margin-top: 2%;
 }
 
 .nav-desktop a {
   text-decoration: none;
   color: black;
   transition: color 0.3s ease;
+  white-space: nowrap;
 }
 
 .nav-desktop a:hover {
@@ -130,6 +130,10 @@ header {
   color: var(--secondary-color);
 }
 
+.bm-item-list {
+  margin-top: 2rem !important;
+}
+
 .bm-cross-button {
   height: 24px;
   width: 24px;
@@ -209,6 +213,7 @@ header {
     align-items: center;
     gap: 2rem;
     padding: 0 2rem;
+    margin-top: 0.7rem;
   }
 
   .nav-desktop {
@@ -402,5 +407,14 @@ header {
 
   .email-circle:hover {
     width: 200px;
+  }
+}
+/* tablet styles */
+@media (max-width: 1024px) and (min-width: 680px) {
+  .navbar-container {
+    padding: 0 1.5rem;
+  }
+  .nav-desktop {
+    gap: 0.9rem;
   }
 }
