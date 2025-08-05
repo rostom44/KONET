@@ -7,9 +7,14 @@ function Card({
   ariaExpanded,
   ariaControls,
   ariaLabel,
+  fullWidth,
 }) {
   return (
-    <div className="service-card">
+    <div
+      className={`service-card${fullWidth ? " service-card--fullwidth" : ""}`}
+      tabIndex={-1}
+      aria-live={expanded ? "polite" : undefined}
+    >
       <div
         className="service-header"
         onClick={onToggle}
@@ -44,6 +49,7 @@ function Card({
       <div
         className={`service-details${expanded ? "" : " collapsed"}`}
         id={ariaControls}
+        aria-hidden={!expanded}
       >
         <p>{service.content || "Plus de détails à venir..."}</p>
         {service.hint && (

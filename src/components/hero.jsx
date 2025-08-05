@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import "../styles/hero.css";
 
 function Hero() {
@@ -21,18 +22,26 @@ function Hero() {
           Notre Priorité c'est Votre Propreté
         </span>
         <div className="hero-buttons mobile-buttons">
-          <button className="hero-btn">services</button>
-          <button className="hero-btn">contact us</button>
+          <NavLink to="/services" className="hero-btn">
+            services
+          </NavLink>
+          <NavLink to="/contact" className="hero-btn">
+            contact us
+          </NavLink>
         </div>
       </div>
 
       {/* Desktop buttons - outside hero-content */}
       <div className="hero-buttons desktop-buttons">
-        <button className="hero-btn">services</button>
+        <NavLink to="/services" className="hero-btn">
+          services
+        </NavLink>
         <span className="priority-text desktop-priority">
           Notre Priorité c'est Votre Propreté
         </span>
-        <button className="hero-btn">contact us</button>
+        <NavLink to="/contact" className="hero-btn">
+          contact us
+        </NavLink>
       </div>
     </div>
   );
