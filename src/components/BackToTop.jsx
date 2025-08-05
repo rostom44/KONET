@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { FiArrowUp } from "react-icons/fi";
+import "../styles/BackToTop.css";
 
 function BackToTop() {
   const [hovered, setHovered] = useState(false);
