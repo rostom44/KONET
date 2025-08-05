@@ -1,9 +1,16 @@
 footer {
+  margin-top: 1.5rem;
   text-align: center;
   font-size: large;
   padding: 1rem;
   font-weight: 600;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  border-top: 3px solid var(--border-color);
+}
+
+footer p {
+  margin-bottom: 0.7rem;
+  white-space: nowrap;
 }
 
 .copyright {
@@ -36,4 +43,18 @@ footer a:hover {
 }
 .footer-link:hover {
   text-decoration: underline;
+}
+
+@media screen and (max-width: 480px) {
+  footer {
+    font-size: medium;
+    white-space: normal;
+    width: 100%;
+  }
+  footer p {
+    white-space: normal;
+  }
+  .footer-email {
+    display: none;
+  }
 }
