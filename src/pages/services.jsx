@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import Loading from "../components/loading.jsx";
 import Card from "../components/card.jsx";
@@ -14,22 +14,18 @@ function Services() {
   const expansionQueue = useRef([]);
 
   useEffect(() => {
-    // Simulate async fetch
     const timer = setTimeout(() => {
       setServices(servicesData.services);
       setLoading(false);
     }, 1000);
-
     return () => clearTimeout(timer);
   }, []);
 
-  // On mount, check for selected service in URL and expand/scroll to it
   useEffect(() => {
     if (!loading && services.length > 0) {
       const params = new URLSearchParams(location.search);
       const selectedId = params.get("selected");
       if (selectedId) {
-        // Find the matching service id as string or number
         const match = services.find((s) => String(s.id) === String(selectedId));
         if (match) {
           const matchId = String(match.id);
@@ -39,7 +35,6 @@ function Services() {
             if (next.length > 3) next = next.slice(next.length - 3);
             return next;
           });
-          // Update expansionQueue
           if (!expansionQueue.current.includes(matchId)) {
             expansionQueue.current.push(matchId);
             if (expansionQueue.current.length > 3)
@@ -59,22 +54,16 @@ function Services() {
   const handleToggle = (id) => {
     setExpandedIds((prev) => {
       if (prev.includes(id)) {
-        // Collapsing
         expansionQueue.current = expansionQueue.current.filter((x) => x !== id);
         return prev.filter((x) => x !== id);
-      } else {
-        // Expanding
-        if (prev.length >= 3) {
-          // Remove oldest expanded card when limit reached
-          const oldest = expansionQueue.current.shift();
-          expansionQueue.current.push(id);
-          return prev.filter((x) => x !== oldest).concat(id);
-        } else {
-          // Normal expansion
-          expansionQueue.current.push(id);
-          return [...prev, id];
-        }
       }
+      if (prev.length >= 3) {
+        const oldest = expansionQueue.current.shift();
+        expansionQueue.current.push(id);
+        return prev.filter((x) => x !== oldest).concat(id);
+      }
+      expansionQueue.current.push(id);
+      return [...prev, id];
     });
   };
 
@@ -82,6 +71,49 @@ function Services() {
     setExpandedIds([]);
     expansionQueue.current = [];
   };
+
+  // Responsive: get cards per row based on window width
+  const getCardsPerRow = useCallback(() => {
+    if (typeof window !== "undefined") {
+      if (window.innerWidth < 700) return 1;
+      if (window.innerWidth < 1000) return 2;
+      return 3;
+    }
+    return 3;
+  }, []);
+
+  const [cardsPerRow, setCardsPerRow] = useState(getCardsPerRow());
+  useEffect(() => {
+    const handleResize = () => setCardsPerRow(getCardsPerRow());
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [getCardsPerRow]);
+
+  // Helper: split services into blocks of normal rows and expanded cards
+  function getLandscapeRows(services, expandedIds, cardsPerRow) {
+    const result = [];
+    let buffer = [];
+    for (let i = 0; i < services.length; i++) {
+      const sid = String(services[i].id);
+      if (expandedIds.includes(sid)) {
+        if (buffer.length) {
+          result.push({ type: "row", cards: buffer });
+          buffer = [];
+        }
+        result.push({ type: "expanded", card: services[i] });
+      } else {
+        buffer.push(services[i]);
+        if (buffer.length === cardsPerRow) {
+          result.push({ type: "row", cards: buffer });
+          buffer = [];
+        }
+      }
+    }
+    if (buffer.length) result.push({ type: "row", cards: buffer });
+    return result;
+  }
+
+  const landscapeRows = getLandscapeRows(services, expandedIds, cardsPerRow);
 
   if (loading) return <Loading />;
 
@@ -92,30 +124,69 @@ function Services() {
         <button
           className="collapse-all-btn"
           onClick={handleCollapseAll}
-          aria-label="Collapse all service details"
+          aria-label="Fermer tous les détails de services"
         >
-          Collapse All
+          Fermer tous
         </button>
       </div>
       <div className="services-list">
-        {services.map((service) => {
-          const sid = String(service.id);
-          return (
-            <div id={`service-card-${sid}`} key={sid}>
-              <Card
-                service={service}
-                expanded={expandedIds.includes(sid)}
-                onToggle={() => handleToggle(sid)}
-                ariaExpanded={expandedIds.includes(sid)}
-                ariaControls={`service-details-${sid}`}
-                ariaLabel={`Afficher les détails pour ${service.name}`}
-              />
-            </div>
-          );
+        {landscapeRows.map((row, idx) => {
+          if (row.type === "row") {
+            return (
+              <div className="services-row" key={"row-" + idx}>
+                {row.cards.map((service) => {
+                  const sid = String(service.id);
+                  const isExpanded = expandedIds.includes(sid);
+                  return (
+                    <div
+                      id={`service-card-${sid}`}
+                      key={sid}
+                      className="service-card-container"
+                    >
+                      <Card
+                        service={service}
+                        expanded={isExpanded}
+                        onToggle={() => handleToggle(sid)}
+                        ariaExpanded={isExpanded}
+                        ariaControls={`service-details-${sid}`}
+                        ariaLabel={`Afficher les détails pour ${service.name}`}
+                        fullWidth={false}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          } else if (row.type === "expanded") {
+            const service = row.card;
+            const sid = String(service.id);
+            return (
+              <div className="services-row" key={"expanded-" + sid}>
+                <div
+                  id={`service-card-${sid}`}
+                  className="service-card-container"
+                  style={{ width: "100%" }}
+                >
+                  <Card
+                    service={service}
+                    expanded={true}
+                    onToggle={() => handleToggle(sid)}
+                    ariaExpanded={true}
+                    ariaControls={`service-details-${sid}`}
+                    ariaLabel={`Afficher les détails pour ${service.name}`}
+                    fullWidth={true}
+                  />
+                </div>
+              </div>
+            );
+          } else {
+            return null;
+          }
         })}
       </div>
       <BackToTop />
     </section>
   );
 }
+
 export default Services;
