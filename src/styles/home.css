@@ -257,7 +257,7 @@
 
 /*+++++++++++++ SERVICES SECTION +++++++++++++*/
 
-.services-list {
+.home-services-list {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
@@ -265,7 +265,7 @@
   padding: 0 1rem;
 }
 
-.service-card {
+.home-service-card {
   background: var(--primary-color);
   border-radius: 1.2rem;
   border: 3px solid var(--border-color);
@@ -282,7 +282,7 @@
   position: relative;
 }
 
-.service-card:hover {
+.home-service-card:hover {
   box-shadow: 0 6px 24px rgba(211, 47, 47, 0.13);
   transform: translateY(-4px) scale(1.02);
 }
@@ -301,7 +301,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
-.service-card h3 {
+.home-service-card h3 {
   font-size: 1.2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
@@ -309,7 +309,7 @@
   text-transform: capitalize;
 }
 
-.service-card p {
+.home-service-card p {
   font-size: 1rem;
   color: #444;
   margin: 0;
@@ -356,24 +356,24 @@
 }
 
 @media (min-width: 600px) {
-  .services-list {
+  .home-services-list {
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
     padding: 0 2rem;
   }
-  .service-card {
+  .home-service-card {
     min-height: 200px;
     padding: 2rem 1.5rem;
   }
 }
 
 @media (min-width: 900px) {
-  .services-list {
+  .home-services-list {
     grid-template-columns: repeat(3, 1fr);
     gap: 2.5rem;
     padding: 0 3rem;
   }
-  .service-card {
+  .home-service-card {
     min-height: 220px;
     padding: 2.5rem 2rem;
   }
