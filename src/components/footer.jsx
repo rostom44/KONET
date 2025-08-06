@@ -1,25 +1,35 @@
 import { NavLink } from "react-router-dom";
 import "../styles/footer.css";
 
-function footer() {
+function Footer() {
   return (
-    <footer>
-      <p className="copyright">
-        {" "}
-        © {new Date().getFullYear()} <span className="footer-logo">KONET</span>{" "}
-        <br />
-        since 20xx
-      </p>
-      <p>
-        <span className="footer-email">Contact us:</span>{" "}
-        <a href="tel:+33xxxxxxx">+33 xxxxxxx</a> |{" "}
-        <a href="mailto:K7G7L@example.com">K7G7L@example.com</a>
-      </p>
-      <NavLink to="/conditions-générales" className="footer-link">
-        Conditions Générales
-      </NavLink>
+    <footer role="contentinfo">
+      <div className="footer-inner">
+        <div className="footer-col brand">
+          <h2 className="brand-name">KONET</h2>
+          <p className="tagline">Empowering cleaning experiences</p>
+          <p className="tag-year">since 20xx</p>
+        </div>
+
+        <div className="footer-col contact">
+          <h3>Contact</h3>
+          <a href="tel:+33xxxxxxx">+33 xxxxxxx</a>
+          <a href="mailto:Konet@example.com">K7G7L@example.com</a>
+        </div>
+
+        <div className="footer-col legal">
+          <h3>Legal</h3>
+          <NavLink to="/conditions-générales" className="footer-link">
+            Conditions Générales
+          </NavLink>
+        </div>
+      </div>
+
+      <div className="footer-bottom">
+        <p>&copy; {new Date().getFullYear()} KONET — All rights reserved.</p>
+      </div>
     </footer>
   );
 }
 
-export default footer;
+export default Footer;
