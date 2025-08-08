@@ -31,7 +31,7 @@ function showManualInput(errorMessage = "") {
   Swal.fire({
     title: "Vérification manuelle",
     html: `
-      <div style='margin-bottom:1em;color:#856404;'>⚠️ ${errorMessage}<br><small>Veuillez sélectionner votre ville manuellement ci-dessous.</small></div>
+      <div style='margin-bottom:1em;color:var(--secondary-color);'>⚠️ ${errorMessage}<br><small>Veuillez sélectionner votre ville manuellement ci-dessous.</small></div>
       <label for='swal2-city-input'>Saisissez votre ville :</label>
       <div style='position:relative;'>
         <input id='swal2-city-input' class='swal2-input' placeholder='ex: Villeurbanne, Lyon 3ème...' autocomplete='off'>
@@ -58,8 +58,8 @@ function showManualInput(errorMessage = "") {
         const btn = document.createElement("button");
         btn.textContent = city;
         btn.className = "swal2-styled";
-        btn.style.background = "#e9ecef";
-        btn.style.color = "#333";
+        btn.style.background = "var(--accent-color)";
+        btn.style.color = "var(--neutral-color)";
         btn.style.fontWeight = "500";
         btn.onclick = () => {
           const cityInput = document.getElementById("swal2-city-input");
@@ -89,7 +89,7 @@ function showManualInput(errorMessage = "") {
           suggestionsDiv.innerHTML = suggestions
             .map(
               (suggestion, index) =>
-                `<div class='suggestion-item' data-index='${index}' style='padding:8px 12px;cursor:pointer;border-bottom:1px solid #eee;' onmouseover='this.style.background="#f0f0f0"' onmouseout='this.style.background="white"'>${suggestion}</div>`
+                `<div class='suggestion-item' data-index='${index}' style='padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--border-color);background:var(--primary-color);color:var(--neutral-color);' onmouseover='this.style.background="var(--accent-color)";this.style.color="var(--neutral-color)"' onmouseout='this.style.background="var(--primary-color)";this.style.color="var(--neutral-color)"'>${suggestion}</div>`
             )
             .join("");
           suggestionsDiv.style.display = "block";
@@ -153,11 +153,11 @@ function showManualInput(errorMessage = "") {
       function updateSuggestionSelection(suggestions, index) {
         suggestions.forEach((item, i) => {
           if (i === index) {
-            item.style.background = "#007bff";
-            item.style.color = "white";
+            item.style.background = "var(--accent-color)";
+            item.style.color = "var(--neutral-color)";
           } else {
-            item.style.background = "white";
-            item.style.color = "black";
+            item.style.background = "var(--primary-color)";
+            item.style.color = "var(--neutral-color)";
           }
         });
       }
@@ -225,7 +225,7 @@ function LocationCheckerModal() {
     // Show consent modal in bottom-right
     Swal.fire({
       title: "Zone d'intervention",
-      html: `<div style='text-align:left;'>Nous intervenons dans un rayon de <b>20km autour de Lyon</b>.<br>Souhaitez-vous vérifier automatiquement si vous êtes dans notre secteur?<br><span style='color:#d32f2f;font-size:0.97em;display:block;margin-top:0.9em;'>Votre emplacement reste privé sur votre appareil uniquement</span></div>`,
+      html: `<div style='text-align:left;'>Nous intervenons dans un rayon de <b>20km autour de Lyon</b>.<br>Souhaitez-vous vérifier automatiquement si vous êtes dans notre secteur?<br><span style='color:var(--secondary-color);font-size:0.97em;display:block;margin-top:0.9em;'>Votre emplacement reste privé sur votre appareil uniquement</span></div>`,
       icon: "question",
       showCancelButton: true,
       confirmButtonText: "Oui, vérifier",

@@ -28,29 +28,29 @@ footer {
 
 .brand-name {
   font-size: clamp(1.6rem, 2.5vw, 2.2rem);
-  color: var(--secondary-color, #4ef2c3);
+  color: var(--accent-color);
   margin: 0;
 }
 
 .tagline {
-  color: black;
+  color: var(--primary-color, #ffffff);
   font-weight: 400;
   opacity: 0.85;
 }
 .tag-year {
-  color: black;
+  color: var(--primary-color, #ffffff);
   font-weight: 600;
 }
 .footer-col h3 {
   font-size: clamp(1.1rem, 2vw, 1.3rem);
   margin-bottom: 0.5rem;
-  color: var(--secondary-color, #4ef2c3);
+  color: var(--accent-color);
 }
 
 /* Links */
 .footer-col a,
 .footer-link {
-  color: black;
+  color: var(--primary-color, #ffffff);
   text-decoration: none;
   transition: all 0.25s ease;
   font-weight: 500;
@@ -58,13 +58,13 @@ footer {
 
 .footer-col a:hover,
 .footer-link:hover {
-  color: var(--secondary-color, #4ef2c3);
+  color: var(--accent-color, #ffb400);
   transform: translateX(2px);
 }
 
 /* Bottom Copy */
 .footer-bottom {
-  color: black;
+  color: var(--primary-color, #ffffff);
   margin-top: 1rem;
   text-align: center;
   opacity: 0.65;

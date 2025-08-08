@@ -58,7 +58,7 @@
 }
 .swal2-styled.swal2-confirm:hover,
 .swal2-styled.swal2-cancel:hover {
-  background: #1769aa !important;
+  background: var(--neutral-color) !important;
 }
 
 .swal2-actions {
