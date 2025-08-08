@@ -25,7 +25,7 @@ header {
 
 .nav-desktop a {
   text-decoration: none;
-  color: black;
+  color: var(--text-on-primary);
   transition: color 0.3s ease;
   white-space: nowrap;
 }
@@ -105,6 +105,7 @@ header {
 /* Mobile menu */
 .bm-menu {
   background: var(--neutral-color);
+  color: var(--text-on-neutral, #fff);
   padding: 2.5em 1.5em;
   font-size: 1.2rem;
   display: flex;
@@ -114,20 +115,20 @@ header {
 
 .bm-menu a {
   text-decoration: none;
-  color: var(--text-color, #333);
+  color: var(--text-on-neutral, #fff);
   padding: 0.8rem 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   transition: all 0.3s ease;
 }
 
 .bm-menu a:hover {
-  color: var(--secondary-color);
+  color: var(--accent-color);
   padding-left: 0.5rem;
 }
 
 .bm-menu a.active {
   font-weight: bold;
-  color: var(--secondary-color);
+  color: var(--accent-color);
 }
 
 .bm-item-list {
@@ -140,7 +141,7 @@ header {
 }
 
 .bm-cross {
-  background: #000000;
+  background: white;
 }
 
 .bm-menu-wrap {

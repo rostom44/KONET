@@ -19,7 +19,7 @@ function Service() {
   const getVisibleServices = () => {
     if (typeof window !== "undefined") {
       if (window.innerWidth < 768) {
-        return services.slice(0, 3);
+        return services.slice(0, 4);
       } else {
         return services.slice(0, 6);
       }
@@ -41,9 +41,9 @@ function Service() {
 
   return (
     <div className="services-container" style={{ textAlign: "center" }}>
-      <div className="services-list">
+      <div className="home-services-list">
         {visibleServices.map(({ id, name, icon, description }) => (
-          <div className="service-card" key={id}>
+          <div className="home-service-card" key={id}>
             <h3>{name}</h3>
             <div className="service-icon">
               <img src={icon} alt={`${name} icon`} />

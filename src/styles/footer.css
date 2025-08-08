@@ -1,60 +1,91 @@
 footer {
-  margin-top: 1.5rem;
-  text-align: center;
-  font-size: large;
-  padding: 1rem;
+  width: 100%;
+  background: var(--neutral-color);
+  color: #fff;
+  padding: 2rem 1.5rem 1rem;
+  font-family: "Segoe UI", sans-serif;
+  font-size: clamp(0.85rem, 1vw + 0.4rem, 1.05rem);
+}
+
+/* Inner Grid */
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 1.5rem;
+}
+
+.footer-col {
+  flex: 1 1 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.brand-name {
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  color: var(--accent-color);
+  margin: 0;
+}
+
+.tagline {
+  color: var(--primary-color, #ffffff);
+  font-weight: 400;
+  opacity: 0.85;
+}
+.tag-year {
+  color: var(--primary-color, #ffffff);
   font-weight: 600;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-  border-top: 3px solid var(--border-color);
 }
-
-footer p {
-  margin-bottom: 0.7rem;
-  white-space: nowrap;
-}
-
-.copyright {
+.footer-col h3 {
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
   margin-bottom: 0.5rem;
+  color: var(--accent-color);
 }
 
-.footer-logo {
-  font-weight: 800;
-  font-size: 1.3rem;
-  color: var(--secondary-color);
-}
-.footer-email {
-  font-weight: 600;
-  text-decoration: underline;
-  color: var(--secondary-color);
-}
-footer a {
-  text-decoration: none;
-  color: black;
-}
-footer a:hover {
-  text-decoration: underline;
-}
-
+/* Links */
+.footer-col a,
 .footer-link {
-  color: var(--secondary-color);
+  color: var(--primary-color, #ffffff);
   text-decoration: none;
-  font-weight: 600;
-  margin-top: 0.5rem;
-}
-.footer-link:hover {
-  text-decoration: underline;
+  transition: all 0.25s ease;
+  font-weight: 500;
 }
 
-@media screen and (max-width: 480px) {
-  footer {
-    font-size: medium;
-    white-space: normal;
-    width: 100%;
+.footer-col a:hover,
+.footer-link:hover {
+  color: var(--accent-color, #ffb400);
+  transform: translateX(2px);
+}
+
+/* Bottom Copy */
+.footer-bottom {
+  color: var(--primary-color, #ffffff);
+  margin-top: 1rem;
+  text-align: center;
+  opacity: 0.65;
+  font-size: 0.9em;
+  letter-spacing: 0.2px;
+}
+
+/* Responsive Mobile Stack */
+@media screen and (max-width: 600px) {
+  .footer-inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
-  footer p {
-    white-space: normal;
+
+  .footer-col {
+    align-items: center;
   }
-  .footer-email {
-    display: none;
+
+  .footer-col a,
+  .footer-link {
+    font-size: 0.95em;
   }
 }

@@ -1,4 +1,5 @@
 import { FiChevronDown } from "react-icons/fi";
+import { useState, useEffect, useRef } from "react";
 
 function Card({
   service,
@@ -9,56 +10,196 @@ function Card({
   ariaLabel,
   fullWidth,
 }) {
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const cardRef = useRef(null);
+  const observerRef = useRef(null);
+
+  // Handle animation state
+  useEffect(() => {
+    if (expanded !== undefined) {
+      setIsAnimating(true);
+      const timer = setTimeout(() => setIsAnimating(false), 500);
+      return () => clearTimeout(timer);
+    }
+  }, [expanded]);
+
+  // Intersection Observer for scroll-triggered animations
+  useEffect(() => {
+    if (cardRef.current) {
+      observerRef.current = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("fade-in");
+            observerRef.current?.unobserve(entry.target);
+          }
+        },
+        { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+      );
+
+      observerRef.current.observe(cardRef.current);
+    }
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, []);
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    if (!isAnimating && !isLoading) {
+      setIsLoading(true);
+      // Small delay to show loading state
+      setTimeout(() => {
+        onToggle();
+        setIsLoading(false);
+      }, 150);
+    }
+  };
+
+  const handleKeyDown = async (e) => {
+    if ((e.key === "Enter" || e.key === " ") && !isAnimating && !isLoading) {
+      e.preventDefault();
+      setIsLoading(true);
+      setTimeout(() => {
+        onToggle();
+        setIsLoading(false);
+      }, 150);
+    }
+  };
+
   return (
-    <div
-      className={`service-card${fullWidth ? " service-card--fullwidth" : ""}`}
+    <article
+      ref={cardRef}
+      className={`service-card${fullWidth ? " service-card--fullwidth" : ""}${
+        isAnimating ? " animating" : ""
+      }${isLoading ? " loading" : ""}`}
       tabIndex={-1}
       aria-live={expanded ? "polite" : undefined}
+      role="region"
+      aria-labelledby={`service-title-${service.id}`}
     >
-      <div
+      <header
         className="service-header"
-        onClick={onToggle}
-        style={{ width: "100%", cursor: "pointer" }}
+        onClick={handleClick}
         aria-expanded={ariaExpanded}
         aria-controls={ariaControls}
         aria-label={ariaLabel}
         role="button"
         tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            onToggle();
-          }
-        }}
+        onKeyDown={handleKeyDown}
       >
-        <h2>{service.name}</h2>
-        <div className="service-icon">
-          {service.icon && service.icon !== "path" ? (
-            <img src={service.icon} alt="icon" />
-          ) : (
-            <span style={{ color: "#fff", fontSize: 36 }}>&#128736;</span>
-          )}
-        </div>
-        <p style={{ marginBottom: 0 }}>
-          {service.description || "Description à venir..."}
-        </p>
-        <div className={`service-arrow${expanded ? " expanded" : ""}`}>
-          <FiChevronDown />
-        </div>
-      </div>
-      <div
+        {fullWidth ? (
+          // Expanded layout - horizontal
+          <>
+            <div className="service-icon">
+              {service.icon && service.icon !== "path" ? (
+                <img src={service.icon} alt={`${service.name} icon`} />
+              ) : (
+                <span
+                  style={{ color: "#fff", fontSize: 36 }}
+                  aria-hidden="true"
+                >
+                  &#128736;
+                </span>
+              )}
+            </div>
+            <div style={{ flex: 1 }}>
+              <h2 id={`service-title-${service.id}`}>{service.name}</h2>
+              <p>{service.description || "Description à venir..."}</p>
+              <div className={`service-arrow${expanded ? " expanded" : ""}`}>
+                <FiChevronDown aria-hidden="true" />
+              </div>
+            </div>
+          </>
+        ) : (
+          // Compact layout - vertical
+          <>
+            <h2 id={`service-title-${service.id}`}>{service.name}</h2>
+            <div className="service-icon">
+              {service.icon && service.icon !== "path" ? (
+                <img src={service.icon} alt={`${service.name} icon`} />
+              ) : (
+                <span
+                  style={{ color: "#fff", fontSize: 36 }}
+                  aria-hidden="true"
+                >
+                  &#128736;
+                </span>
+              )}
+            </div>
+            <p>{service.description || "Description à venir..."}</p>
+            <div className={`service-arrow${expanded ? " expanded" : ""}`}>
+              <FiChevronDown aria-hidden="true" />
+            </div>
+          </>
+        )}
+      </header>
+
+      <section
         className={`service-details${expanded ? "" : " collapsed"}`}
         id={ariaControls}
         aria-hidden={!expanded}
       >
-        <p>{service.content || "Plus de détails à venir..."}</p>
-        {service.hint && (
-          <div className="service-hint">
-            <span>remarque :</span> {service.hint}
-          </div>
+        {expanded && (
+          <>
+            {fullWidth ? (
+              // Enhanced expanded content layout
+              <div className="expanded-content">
+                <div className="main-content">
+                  <p>{service.content || "Plus de détails à venir..."}</p>
+
+                  {/* Additional content for expanded view */}
+                  {service.features && (
+                    <div className="features-list">
+                      <h3>Fonctionnalités principales</h3>
+                      <ul>
+                        {service.features.map((feature, index) => (
+                          <li key={index}>{feature}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+
+                <aside className="sidebar-content">
+                  {service.technologies && (
+                    <div className="tech-stack">
+                      <h4>Technologies utilisées</h4>
+                      <div className="tech-tags">
+                        {service.technologies.map((tech, index) => (
+                          <span key={index} className="tech-tag">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {service.pricing && (
+                    <div className="pricing-info">
+                      <h4>À partir de</h4>
+                      <div className="price">{service.pricing}</div>
+                    </div>
+                  )}
+                </aside>
+              </div>
+            ) : (
+              // Simple collapsed content
+              <p>{service.content || "Plus de détails à venir..."}</p>
+            )}
+
+            {service.hint && (
+              <div className="service-hint">
+                <span>Remarque :</span> {service.hint}
+              </div>
+            )}
+          </>
         )}
-      </div>
-    </div>
+      </section>
+    </article>
   );
 }
 
