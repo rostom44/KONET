@@ -3,7 +3,7 @@ import "../styles/footer.css";
 
 function Footer() {
   return (
-    <footer role="contentinfo">
+    <footer>
       <div className="footer-inner">
         <div className="footer-col brand">
           <h2 className="brand-name">KONET</h2>
