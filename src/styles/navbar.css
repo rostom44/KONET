@@ -28,6 +28,8 @@ header {
   color: var(--text-on-primary);
   transition: color 0.3s ease;
   white-space: nowrap;
+  font-size: large;
+  text-decoration: underline;
 }
 
 .nav-desktop a:hover {
@@ -417,5 +419,8 @@ header {
   }
   .nav-desktop {
     gap: 0.9rem;
+  }
+  .nav-desktop a {
+    font-size: medium;
   }
 }

@@ -145,52 +145,7 @@ function Card({
       >
         {expanded && (
           <>
-            {fullWidth ? (
-              // Enhanced expanded content layout
-              <div className="expanded-content">
-                <div className="main-content">
-                  <p>{service.content || "Plus de détails à venir..."}</p>
-
-                  {/* Additional content for expanded view */}
-                  {service.features && (
-                    <div className="features-list">
-                      <h3>Fonctionnalités principales</h3>
-                      <ul>
-                        {service.features.map((feature, index) => (
-                          <li key={index}>{feature}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-
-                <aside className="sidebar-content">
-                  {service.technologies && (
-                    <div className="tech-stack">
-                      <h4>Technologies utilisées</h4>
-                      <div className="tech-tags">
-                        {service.technologies.map((tech, index) => (
-                          <span key={index} className="tech-tag">
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {service.pricing && (
-                    <div className="pricing-info">
-                      <h4>À partir de</h4>
-                      <div className="price">{service.pricing}</div>
-                    </div>
-                  )}
-                </aside>
-              </div>
-            ) : (
-              // Simple collapsed content
-              <p>{service.content || "Plus de détails à venir..."}</p>
-            )}
-
+            <p>{service.content || "Plus de détails à venir..."}</p>
             {service.hint && (
               <div className="service-hint">
                 <span>Remarque :</span> {service.hint}

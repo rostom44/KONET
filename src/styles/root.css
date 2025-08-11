@@ -4,7 +4,7 @@
   --primary-color: #ffffff;
   --secondary-color: #d32f2f; /* Main red */
   --neutral-color: #16213e; /* Deep navy for backgrounds */
-  --border-color: #e0e0e0; /* Light border for dark bg */
+  --border-color: #303030; /* dark border for white bg */
   --box-color: #1a2236eb; /* Slightly lighter navy for boxes */
   --accent-color: #ffb400; /* Gold accent for contrast */
   --text-on-neutral: #ffffff; /* White text on navy */

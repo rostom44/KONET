@@ -3,12 +3,12 @@ import "../styles/footer.css";
 
 function Footer() {
   return (
-    <footer role="contentinfo">
+    <footer>
       <div className="footer-inner">
         <div className="footer-col brand">
           <h2 className="brand-name">KONET</h2>
-          <p className="tagline">Empowering cleaning experiences</p>
-          <p className="tag-year">since 20xx</p>
+          <p className="tagline">Le service de nettoyage de confiance</p>
+          <p className="tag-year">depuis 20xx</p>
         </div>
 
         <div className="footer-col contact">

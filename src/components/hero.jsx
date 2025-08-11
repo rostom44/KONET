@@ -6,17 +6,18 @@ function Hero() {
     <div className="hero">
       <div className="hero-overlay" />
       <div className="hero-content">
-        <h1 className="hero-title">
-          fresh
-          <br />
-          propre
-          <br />
-          et brillant
-        </h1>
-        <div className="hero-subtitle">
-          <span className="konet">konet</span> est la pour vous
-          <br />
-          nous offrons divers services pour nettoyer ce dont vous avez besoin
+        <div className="text-overlay">
+          <h1 className="hero-title">
+            Frais, Propre
+            <br />& Brillant
+          </h1>
+          <div className="hero-subtitle">
+            <span className="konet">Konet</span> est là pour vous.
+            <br />
+            Nous offrons divers services pour nettoyer
+            <br />
+            tout ce dont vous avez besoin.
+          </div>
         </div>
         <span className="priority-text mobile-priority">
           Notre Priorité c'est Votre Propreté

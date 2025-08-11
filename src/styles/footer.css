@@ -1,5 +1,6 @@
 footer {
   width: 100%;
+  margin-top: 1rem;
   background: var(--neutral-color);
   color: #fff;
   padding: 2rem 1.5rem 1rem;
@@ -7,20 +8,18 @@ footer {
   font-size: clamp(0.85rem, 1vw + 0.4rem, 1.05rem);
 }
 
-/* Inner Grid */
+/* Grid Layout */
 .footer-inner {
   max-width: 1200px;
   margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding-bottom: 1.5rem;
 }
 
 .footer-col {
-  flex: 1 1 200px;
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
@@ -37,10 +36,12 @@ footer {
   font-weight: 400;
   opacity: 0.85;
 }
+
 .tag-year {
   color: var(--primary-color, #ffffff);
   font-weight: 600;
 }
+
 .footer-col h3 {
   font-size: clamp(1.1rem, 2vw, 1.3rem);
   margin-bottom: 0.5rem;
@@ -54,6 +55,7 @@ footer {
   text-decoration: none;
   transition: all 0.25s ease;
   font-weight: 500;
+  text-decoration: underline;
 }
 
 .footer-col a:hover,
@@ -72,16 +74,39 @@ footer {
   letter-spacing: 0.2px;
 }
 
-/* Responsive Mobile Stack */
-@media screen and (max-width: 600px) {
+/* Tablet: 2 columns on top row, 1 centered on bottom */
+@media screen and (max-width: 768px) {
   .footer-inner {
-    flex-direction: column;
-    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    justify-items: center;
+    text-align: center;
+  }
+
+  /* Make the third column span both columns and center it */
+  .footer-col:nth-child(3) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    max-width: 300px;
+  }
+}
+
+/* Small screens: All columns stack vertically */
+@media screen and (max-width: 480px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 1rem;
     text-align: center;
   }
 
   .footer-col {
     align-items: center;
+    gap: 0.4rem;
+  }
+
+  .footer-col:nth-child(3) {
+    grid-column: 1;
+    max-width: none;
   }
 
   .footer-col a,
