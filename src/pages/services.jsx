@@ -51,7 +51,8 @@ function Services() {
     }
   }, [loading, services, location.search]);
 
-  const handleToggle = (id) => {
+  // Scroll to card when expanding
+  const handleToggle = (id, scrollToCard = false) => {
     setExpandedIds((prev) => {
       if (prev.includes(id)) {
         expansionQueue.current = expansionQueue.current.filter((x) => x !== id);
@@ -65,6 +66,14 @@ function Services() {
       expansionQueue.current.push(id);
       return [...prev, id];
     });
+    if (scrollToCard) {
+      setTimeout(() => {
+        const el = document.getElementById(`service-card-${id}`);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      }, 350); // Wait for DOM update/animation
+    }
   };
 
   const handleCollapseAll = () => {
@@ -168,7 +177,7 @@ function Services() {
                       <Card
                         service={service}
                         expanded={isExpanded}
-                        onToggle={() => handleToggle(sid)}
+                        onToggle={(scroll) => handleToggle(sid, scroll)}
                         ariaExpanded={isExpanded}
                         ariaControls={`service-details-${sid}`}
                         ariaLabel={`Afficher les détails pour ${service.name}`}
@@ -192,7 +201,7 @@ function Services() {
                   <Card
                     service={service}
                     expanded={true}
-                    onToggle={() => handleToggle(sid)}
+                    onToggle={(scroll) => handleToggle(sid, scroll)}
                     ariaExpanded={true}
                     ariaControls={`service-details-${sid}`}
                     ariaLabel={`Afficher les détails pour ${service.name}`}

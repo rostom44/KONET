@@ -47,13 +47,17 @@ function Card({
     };
   }, []);
 
+  // When expanding, pass scroll=true to parent so it scrolls to the card
   const handleClick = async (e) => {
     e.preventDefault();
     if (!isAnimating && !isLoading) {
       setIsLoading(true);
-      // Small delay to show loading state
       setTimeout(() => {
-        onToggle();
+        if (!expanded) {
+          onToggle(true); // ask parent to scroll
+        } else {
+          onToggle(false);
+        }
         setIsLoading(false);
       }, 150);
     }
@@ -64,7 +68,11 @@ function Card({
       e.preventDefault();
       setIsLoading(true);
       setTimeout(() => {
-        onToggle();
+        if (!expanded) {
+          onToggle(true);
+        } else {
+          onToggle(false);
+        }
         setIsLoading(false);
       }, 150);
     }
