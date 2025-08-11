@@ -59,7 +59,7 @@
   justify-content: center;
   min-height: 60vh;
   font-weight: bold;
-  color: var(--accent-color, var(--secondary-color));
+  color: var(--secondary-color);
 }
 
 .spinner {
@@ -220,10 +220,6 @@
 
   .service-card--fullwidth .service-details {
     margin-top: 1.5rem;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 3rem;
-    align-items: start;
   }
 }
 
@@ -409,92 +405,28 @@
   animation: fadeInUp 0.6s ease forwards;
 }
 
-/* Enhanced expanded content styles */
+/* Enhanced expanded content styles - FIXED: No more grid layout causing spacing */
 .expanded-content {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 3rem;
-  align-items: start;
+  display: block;
+  width: 100%;
 }
 
-@media (max-width: 899px) {
-  .expanded-content {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
+.main-content {
+  width: 100%;
 }
 
-.features-list {
-  margin: 1.5rem 0;
-}
-
-.features-list h3 {
-  color: var(--secondary-color);
-  font-size: 1.3rem;
-  margin-bottom: 1rem;
-  font-weight: 600;
-}
-
-.features-list ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.features-list li {
-  padding: 0.75rem 0;
-  border-bottom: 1px solid #eee;
-  display: flex;
-  align-items: center;
-  font-size: 1.05rem;
-  line-height: 1.5;
-}
-
-.features-list li:last-child {
-  border-bottom: none;
-}
-
-.features-list li:before {
-  content: "✓";
-  color: var(--secondary-color);
-  font-weight: bold;
-  margin-right: 0.75rem;
-  font-size: 1.2rem;
-  flex-shrink: 0;
-}
-
+/* Keep these styles for future use but they won't be applied now */
 .sidebar-content {
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
-.tech-stack h4,
 .pricing-info h4 {
   color: #333;
   font-size: 1.2rem;
   margin-bottom: 1rem;
   font-weight: 600;
-}
-
-.tech-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.tech-tag {
-  background: var(--secondary-color);
-  color: white;
-  padding: 0.4rem 0.9rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: transform 0.2s ease;
-}
-
-.tech-tag:hover {
-  transform: translateY(-1px);
 }
 
 .pricing-info {
