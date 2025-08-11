@@ -1,50 +1,212 @@
-/* Location Checker Modal & SweetAlert2 Custom Styles */
+/* Main popup styles */
 .swal2-location-popup {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   border-radius: 14px;
-  max-width: 420px;
+  max-width: min(420px, calc(100vw - 4vw));
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
   padding: 0 0 1.5em 0;
-  border: 3px solid var(--border-color, #2196f3);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
-  background: #fff;
-  /* Prevent modal from exceeding viewport width */
-  max-width: min(420px, 100vw);
+  border: 3px solid var(--border-color);
+  box-shadow: var(--shadow-default);
+  background: var(--primary-color);
   overflow-x: auto;
 }
 
+/* Positioning for bottom-right modals */
+.swal2-bottom-right {
+  position: fixed !important;
+  right: 2vw !important;
+  bottom: 2vh !important;
+  left: auto !important;
+  top: auto !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+}
+
+/* Title and content */
 .swal2-title {
   font-size: 1.3rem !important;
-  color: #333 !important;
+  color: var(--text-primary) !important;
 }
 
 .swal2-html-container {
   font-size: 1.05em !important;
-  color: #444 !important;
+  color: var(--text-secondary) !important;
   margin-top: 0.5em !important;
 }
+.swal2-icon-content {
+  color: var(--secondary-color);
+}
 
+/* Result content styling */
+.swal-result-content {
+  font-size: 1.1em;
+}
+
+/* Consent content */
+.swal-consent-content {
+  text-align: left;
+}
+
+.swal-privacy-note {
+  color: var(--secondary-color);
+  font-size: 0.97em;
+  display: block;
+  margin-top: 0.9em;
+}
+
+/* Manual input error message */
+.swal-manual-error {
+  margin-bottom: 1em;
+  color: var(--secondary-color);
+}
+
+.swal-manual-error .warning-icon {
+  margin-right: 0.25em;
+}
+
+.swal-manual-error small {
+  display: block;
+  margin-top: 0.25em;
+}
+
+/* City input label */
+.swal-city-label {
+  display: block;
+  margin-top: 0.5em;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* Input wrapper for suggestions dropdown */
+.swal-input-wrapper {
+  position: relative;
+}
+
+/* Input field styles */
 .swal2-popup .swal2-input {
   border-radius: 8px;
   border: 2px solid #ddd;
   font-size: 1em;
   padding: 0.7em 1em;
-  margin: 0.5em 0 0.5em 0;
+  margin: 0.5em 0;
   width: 100%;
   box-sizing: border-box;
+  transition: border-color 0.2s;
 }
 
 .swal2-popup .swal2-input:focus {
-  border-color: #4caf50;
+  border-color: var(--accent-color);
   outline: none;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
 }
 
-/* Make both confirm and cancel buttons same size and secondary color */
+/* Suggestions dropdown */
+.swal-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-top: none;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  display: none;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Suggestion items */
+.suggestion-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--primary-color);
+  color: var(--neutral-color);
+  transition: all 0.2s;
+}
+
+.suggestion-item:hover {
+  background: var(--accent-color);
+  color: var(--primary-color);
+}
+
+.suggestion-item-selected {
+  background: var(--accent-color) !important;
+  color: var(--primary-color) !important;
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+/* City check button */
+.swal-city-check-btn {
+  margin-top: 0.5em !important;
+}
+
+/* Quick cities section */
+.swal-quick-cities-label {
+  margin: 1em 0 0.5em 0;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.swal-quick-cities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+
+.swal-quick-city-btn {
+  background: var(--secondary-color) !important;
+  color: var(--primary-color) !important;
+  font-weight: 500 !important;
+  padding: 0.5em 1em !important;
+  border-radius: 6px !important;
+  transition: all 0.2s !important;
+  border: none !important;
+  cursor: pointer;
+}
+
+.swal-quick-city-btn:hover {
+  background: var(--neutral-color) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Contact info */
+.swal-contact-info {
+  margin-top: 1em;
+  font-size: 0.95em;
+}
+
+.swal-phone-link {
+  color: #007bff;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.swal-phone-link:hover {
+  color: #0056b3;
+}
+
+/* Loader container */
+.swal-loader-container {
+  margin: 1em 0;
+}
+
+.swal-location-manual {
+  display: none;
+}
+
+/* Standard buttons */
 .swal2-styled.swal2-confirm,
 .swal2-styled.swal2-cancel {
-  background: var(--secondary-color, #2196f3) !important;
+  background: var(--secondary-color) !important;
   color: #fff !important;
   border-radius: 8px !important;
   font-weight: 600 !important;
@@ -54,11 +216,14 @@
   min-width: 120px;
   border: none !important;
   box-shadow: none !important;
-  transition: background 0.2s;
+  transition: all 0.2s;
+  cursor: pointer;
 }
+
 .swal2-styled.swal2-confirm:hover,
 .swal2-styled.swal2-cancel:hover {
   background: var(--neutral-color) !important;
+  transform: translateY(-1px);
 }
 
 .swal2-actions {
@@ -67,7 +232,7 @@
   gap: 1em !important;
 }
 
-/* IMPROVED Retry geolocation button */
+/* Retry geolocation button */
 #swal2-retry-geo.swal2-styled {
   background: linear-gradient(135deg, #e98f8a 0%, #e9221f 100%) !important;
   color: #ffffff !important;
@@ -87,35 +252,28 @@
   outline: none !important;
   position: relative !important;
   overflow: hidden !important;
-
-  /* Modern shadow */
   box-shadow:
     0 4px 15px rgba(102, 126, 234, 0.3),
     0 2px 4px rgba(0, 0, 0, 0.1) !important;
-
-  /* Smooth transitions */
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-
-  /* Add a subtle glow effect */
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* Add location icon before text */
+/* Location icon for retry button */
 #swal2-retry-geo.swal2-styled:before {
   content: "📍" !important;
   font-size: 1.1em !important;
   margin-right: 4px !important;
 }
 
-/* Enhanced hover and focus states */
+/* Retry button hover state */
 #swal2-retry-geo.swal2-styled:hover {
-  background: #2196f3 !important;
+  background: var(--secondary-color) !important;
   transform: translateY(-2px) !important;
-  box-shadow:
-    0 8px 25px rgba(102, 126, 234, 0.4),
-    0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  box-shadow: var(--shadow-hover) !important;
 }
 
+/* Retry button active state */
 #swal2-retry-geo.swal2-styled:active {
   transform: translateY(-1px) !important;
   box-shadow:
@@ -123,6 +281,7 @@
     0 3px 8px rgba(0, 0, 0, 0.12) !important;
 }
 
+/* Retry button focus state */
 #swal2-retry-geo.swal2-styled:focus {
   box-shadow:
     0 4px 15px rgba(102, 126, 234, 0.3),
@@ -130,7 +289,7 @@
     0 0 0 3px rgba(102, 126, 234, 0.2) !important;
 }
 
-/* Ripple effect on click */
+/* Ripple effect for retry button */
 #swal2-retry-geo.swal2-styled:after {
   content: "" !important;
   position: absolute !important;
@@ -152,7 +311,7 @@
   height: 100px !important;
 }
 
-/* Keep the overlay but make it transparent and non-blocking */
+/* Container overlay - transparent and non-blocking */
 .swal2-container {
   background: rgba(0, 0, 0, 0) !important;
   pointer-events: none !important;
@@ -169,17 +328,6 @@
   position: fixed !important;
 }
 
-/* Specific positioning for bottom-right modals */
-.swal2-bottom-right {
-  position: fixed !important;
-  right: 2vw !important;
-  bottom: 2vh !important;
-  left: auto !important;
-  top: auto !important;
-  margin: 0 !important;
-  z-index: 9999 !important;
-}
-
 /* Prevent body scroll lock */
 body.swal2-shown,
 html.swal2-shown {
@@ -187,16 +335,28 @@ html.swal2-shown {
   padding-right: 0 !important;
 }
 
-/* Remove loader spinner style */
+/* Hide loader spinner (using custom loader) */
 .swal2-loader {
   display: none !important;
 }
 
+/* Close button customization */
+.swal2-close {
+  color: var(--text-muted) !important;
+  transition: color 0.2s !important;
+}
+
+.swal2-close:hover {
+  color: var(--text-primary) !important;
+}
+
+/* Mobile responsive styles */
 @media (max-width: 600px) {
   .swal2-location-popup {
-    max-width: 98vw;
+    max-width: calc(100vw - 2vw);
     padding: 0 0 1em 0;
   }
+
   .swal2-html-container {
     font-size: 0.98em !important;
   }
@@ -211,5 +371,47 @@ html.swal2-shown {
     font-size: 0.9em !important;
     padding: 10px 20px !important;
     margin: 14px auto 6px auto !important;
+  }
+
+  /* Smaller quick city buttons on mobile */
+  .swal-quick-city-btn {
+    font-size: 0.9em !important;
+    padding: 0.4em 0.8em !important;
+  }
+
+  /* Adjust suggestions dropdown height on mobile */
+  .swal-suggestions {
+    max-height: 150px;
+  }
+}
+
+/* Tablet styles */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .swal2-location-popup {
+    max-width: min(380px, calc(100vw - 3vw));
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .swal2-location-popup {
+    border-width: 2px;
+  }
+
+  .suggestion-item {
+    border-bottom-width: 2px;
+  }
+
+  .swal2-input {
+    border-width: 3px;
   }
 }
