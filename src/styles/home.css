@@ -27,7 +27,7 @@
   display: block;
   text-align: center;
   padding: 0.5rem 1rem;
-  background: var(--accent-color);
+  background: var(--secondary-color);
   color: white;
   text-decoration: none;
   border-radius: 0.5rem;

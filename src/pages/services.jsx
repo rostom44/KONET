@@ -51,7 +51,8 @@ function Services() {
     }
   }, [loading, services, location.search]);
 
-  const handleToggle = (id) => {
+  // Scroll to card when expanding
+  const handleToggle = (id, scrollToCard = false) => {
     setExpandedIds((prev) => {
       if (prev.includes(id)) {
         expansionQueue.current = expansionQueue.current.filter((x) => x !== id);
@@ -65,6 +66,14 @@ function Services() {
       expansionQueue.current.push(id);
       return [...prev, id];
     });
+    if (scrollToCard) {
+      setTimeout(() => {
+        const el = document.getElementById(`service-card-${id}`);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      }, 350); // Wait for DOM update/animation
+    }
   };
 
   const handleCollapseAll = () => {
@@ -89,31 +98,53 @@ function Services() {
     return () => window.removeEventListener("resize", handleResize);
   }, [getCardsPerRow]);
 
-  // Helper: split services into blocks of normal rows and expanded cards
-  function getLandscapeRows(services, expandedIds, cardsPerRow) {
+  // Improved: On desktop, expanded cards always at the top, closed cards below in rows
+  function getImprovedRows(services, expandedIds, cardsPerRow) {
+    // On mobile, keep old behavior
+    if (cardsPerRow === 1) {
+      const result = [];
+      let buffer = [];
+      for (let i = 0; i < services.length; i++) {
+        const sid = String(services[i].id);
+        if (expandedIds.includes(sid)) {
+          if (buffer.length) {
+            result.push({ type: "row", cards: buffer });
+            buffer = [];
+          }
+          result.push({ type: "expanded", card: services[i] });
+        } else {
+          buffer.push(services[i]);
+          if (buffer.length === cardsPerRow) {
+            result.push({ type: "row", cards: buffer });
+            buffer = [];
+          }
+        }
+      }
+      if (buffer.length) result.push({ type: "row", cards: buffer });
+      return result;
+    }
+    // Desktop: expanded cards at top, closed cards below
+    const expanded = services.filter((s) => expandedIds.includes(String(s.id)));
+    const closed = services.filter((s) => !expandedIds.includes(String(s.id)));
     const result = [];
+    // Add each expanded card as a full-width row
+    expanded.forEach((service) => {
+      result.push({ type: "expanded", card: service });
+    });
+    // Add closed cards in rows
     let buffer = [];
-    for (let i = 0; i < services.length; i++) {
-      const sid = String(services[i].id);
-      if (expandedIds.includes(sid)) {
-        if (buffer.length) {
-          result.push({ type: "row", cards: buffer });
-          buffer = [];
-        }
-        result.push({ type: "expanded", card: services[i] });
-      } else {
-        buffer.push(services[i]);
-        if (buffer.length === cardsPerRow) {
-          result.push({ type: "row", cards: buffer });
-          buffer = [];
-        }
+    for (let i = 0; i < closed.length; i++) {
+      buffer.push(closed[i]);
+      if (buffer.length === cardsPerRow) {
+        result.push({ type: "row", cards: buffer });
+        buffer = [];
       }
     }
     if (buffer.length) result.push({ type: "row", cards: buffer });
     return result;
   }
 
-  const landscapeRows = getLandscapeRows(services, expandedIds, cardsPerRow);
+  const landscapeRows = getImprovedRows(services, expandedIds, cardsPerRow);
 
   if (loading) return <Loading />;
 
@@ -146,7 +177,7 @@ function Services() {
                       <Card
                         service={service}
                         expanded={isExpanded}
-                        onToggle={() => handleToggle(sid)}
+                        onToggle={(scroll) => handleToggle(sid, scroll)}
                         ariaExpanded={isExpanded}
                         ariaControls={`service-details-${sid}`}
                         ariaLabel={`Afficher les détails pour ${service.name}`}
@@ -170,7 +201,7 @@ function Services() {
                   <Card
                     service={service}
                     expanded={true}
-                    onToggle={() => handleToggle(sid)}
+                    onToggle={(scroll) => handleToggle(sid, scroll)}
                     ariaExpanded={true}
                     ariaControls={`service-details-${sid}`}
                     ariaLabel={`Afficher les détails pour ${service.name}`}

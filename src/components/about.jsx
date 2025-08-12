@@ -185,7 +185,7 @@ function About() {
         </div>
       </div>
       <NavLink
-        to="/services"
+        to="/a propos"
         className="about-link"
         aria-label="En savoir plus sur nos services de nettoyage professionnel"
       >

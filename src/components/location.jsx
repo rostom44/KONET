@@ -17,9 +17,10 @@ function showResult(type, message, actions = "") {
   if (type === "success") icon = "success";
   else if (type === "error") icon = "error";
   else if (type === "warning") icon = "warning";
+
   Swal.fire({
     icon,
-    html: `<div style="font-size:1.1em;">${message}${actions}</div>`,
+    html: `<div class="swal-result-content">${message}${actions}</div>`,
     confirmButtonText: "Fermer",
     customClass: {
       popup: "swal2-location-popup",
@@ -31,17 +32,21 @@ function showManualInput(errorMessage = "") {
   Swal.fire({
     title: "Vérification manuelle",
     html: `
-      <div style='margin-bottom:1em;color:var(--secondary-color);'>⚠️ ${errorMessage}<br><small>Veuillez sélectionner votre ville manuellement ci-dessous.</small></div>
-      <label for='swal2-city-input'>Saisissez votre ville :</label>
-      <div style='position:relative;'>
-        <input id='swal2-city-input' class='swal2-input' placeholder='ex: Villeurbanne, Lyon 3ème...' autocomplete='off'>
-        <div id='swal2-suggestions' style='position:absolute;top:100%;left:0;right:0;background:white;border:1px solid #ddd;border-top:none;max-height:200px;overflow-y:auto;z-index:1000;display:none;'></div>
+      <div class='swal-manual-error' role="alert" aria-live="assertive">
+        <span class="warning-icon" aria-hidden="true">⚠️</span> ${errorMessage}
+        <small>Veuillez sélectionner votre ville manuellement ci-dessous.</small>
       </div>
-      <button id='swal2-city-check' class='swal2-confirm swal2-styled' style='margin-top:0.5em;'>Vérifier</button>
-      <div style='margin:1em 0 0.5em 0;'>Ou sélectionnez directement :</div>
-      <div id='swal2-quick-cities' style='display:flex;flex-wrap:wrap;gap:0.5em;'></div>
-      <div style='margin-top:1em;font-size:0.95em;'>
-        <b>Contact :</b> <a href='tel:${CONFIG.PHONE.replace(/ /g, "")} ' style='color:#007bff;text-decoration:underline;'>${CONFIG.PHONE}</a>
+      <label for='swal2-city-input' class='swal-city-label'>Saisissez votre ville :</label>
+      <div class='swal-input-wrapper'>
+        <input id='swal2-city-input' class='swal2-input' placeholder='ex: Villeurbanne, Lyon 3ème...'
+          autocomplete='off' aria-label="Saisissez votre ville" aria-autocomplete="list" aria-controls="swal2-suggestions" aria-haspopup="listbox" role="combobox">
+        <ul id='swal2-suggestions' class='swal-suggestions' role="listbox" aria-label="Suggestions de villes"></ul>
+      </div>
+      <button id='swal2-city-check' class='swal2-confirm swal2-styled swal-city-check-btn' aria-label="Vérifier la ville">Vérifier</button>
+      <div class='swal-quick-cities-label'>Ou sélectionnez directement :</div>
+      <div id='swal2-quick-cities' class='swal-quick-cities' role="group" aria-label="Villes rapides"></div>
+      <div class='swal-contact-info'>
+        <b>Contact :</b> <a href='tel:${CONFIG.PHONE.replace(/ /g, "")}' class='swal-phone-link' aria-label="Téléphone">${CONFIG.PHONE}</a>
       </div>
     `,
     showConfirmButton: false,
@@ -51,25 +56,26 @@ function showManualInput(errorMessage = "") {
       popup: "swal2-location-popup swal2-bottom-right",
     },
   });
+
   setTimeout(() => {
     const quickCitiesDiv = document.getElementById("swal2-quick-cities");
     if (quickCitiesDiv) {
       QUICK_CITIES.forEach((city) => {
         const btn = document.createElement("button");
         btn.textContent = city;
-        btn.className = "swal2-styled";
-        btn.style.background = "var(--accent-color)";
-        btn.style.color = "var(--neutral-color)";
-        btn.style.fontWeight = "500";
+        btn.className = "swal2-styled swal-quick-city-btn";
+        btn.setAttribute("aria-label", `Choisir la ville ${city}`);
         btn.onclick = () => {
           const cityInput = document.getElementById("swal2-city-input");
           if (cityInput) cityInput.value = city;
           const suggestionsDiv = document.getElementById("swal2-suggestions");
           if (suggestionsDiv) suggestionsDiv.style.display = "none";
+          cityInput && cityInput.focus();
         };
         quickCitiesDiv.appendChild(btn);
       });
     }
+
     const checkBtn = document.getElementById("swal2-city-check");
     if (checkBtn) {
       checkBtn.onclick = () => {
@@ -77,22 +83,27 @@ function showManualInput(errorMessage = "") {
         handleCityCheck(city);
       };
     }
+
     const cityInput = document.getElementById("swal2-city-input");
     const suggestionsDiv = document.getElementById("swal2-suggestions");
+
     if (cityInput && suggestionsDiv) {
       let selectedSuggestionIndex = -1;
+
       cityInput.oninput = (e) => {
         const value = e.target.value.trim();
         const suggestions = getSuggestions(value);
         selectedSuggestionIndex = -1;
+
         if (suggestions.length > 0 && value.length >= 2) {
           suggestionsDiv.innerHTML = suggestions
             .map(
               (suggestion, index) =>
-                `<div class='suggestion-item' data-index='${index}' style='padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--border-color);background:var(--primary-color);color:var(--neutral-color);' onmouseover='this.style.background="var(--accent-color)";this.style.color="var(--neutral-color)"' onmouseout='this.style.background="var(--primary-color)";this.style.color="var(--neutral-color)"'>${suggestion}</div>`
+                `<li class='suggestion-item' data-index='${index}' role="option" tabindex="-1">${suggestion}</li>`
             )
             .join("");
           suggestionsDiv.style.display = "block";
+
           suggestions.forEach((suggestion, index) => {
             const item = suggestionsDiv.querySelector(
               `[data-index='${index}']`
@@ -104,6 +115,13 @@ function showManualInput(errorMessage = "") {
                   document.getElementById("swal2-suggestions");
                 if (cityInputEl) cityInputEl.value = suggestion;
                 if (suggestionsDivEl) suggestionsDivEl.style.display = "none";
+                cityInputEl && cityInputEl.focus();
+              };
+              item.onkeydown = (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  item.click();
+                }
               };
             }
           });
@@ -111,8 +129,10 @@ function showManualInput(errorMessage = "") {
           suggestionsDiv.style.display = "none";
         }
       };
+
       cityInput.onkeydown = (e) => {
         const suggestions = suggestionsDiv.querySelectorAll(".suggestion-item");
+
         if (e.key === "ArrowDown") {
           e.preventDefault();
           selectedSuggestionIndex = Math.min(
@@ -120,10 +140,18 @@ function showManualInput(errorMessage = "") {
             suggestions.length - 1
           );
           updateSuggestionSelection(suggestions, selectedSuggestionIndex);
+          if (suggestions[selectedSuggestionIndex])
+            suggestions[selectedSuggestionIndex].focus();
         } else if (e.key === "ArrowUp") {
           e.preventDefault();
           selectedSuggestionIndex = Math.max(selectedSuggestionIndex - 1, -1);
           updateSuggestionSelection(suggestions, selectedSuggestionIndex);
+          if (
+            selectedSuggestionIndex >= 0 &&
+            suggestions[selectedSuggestionIndex]
+          )
+            suggestions[selectedSuggestionIndex].focus();
+          else cityInput.focus();
         } else if (e.key === "Enter") {
           e.preventDefault();
           if (
@@ -145,19 +173,21 @@ function showManualInput(errorMessage = "") {
           selectedSuggestionIndex = -1;
         }
       };
+
       cityInput.onblur = () => {
         setTimeout(() => {
           suggestionsDiv.style.display = "none";
         }, 150);
       };
+
       function updateSuggestionSelection(suggestions, index) {
         suggestions.forEach((item, i) => {
           if (i === index) {
-            item.style.background = "var(--accent-color)";
-            item.style.color = "var(--neutral-color)";
+            item.classList.add("suggestion-item-selected");
+            item.setAttribute("aria-selected", "true");
           } else {
-            item.style.background = "var(--primary-color)";
-            item.style.color = "var(--neutral-color)";
+            item.classList.remove("suggestion-item-selected");
+            item.setAttribute("aria-selected", "false");
           }
         });
       }
@@ -167,6 +197,7 @@ function showManualInput(errorMessage = "") {
 
 function handleCityCheck(cityName) {
   const result = checkLocationByCity(cityName);
+
   if (result.success) {
     showResult("success", result.message);
   } else if (result.type === "validation") {
@@ -177,13 +208,14 @@ function handleCityCheck(cityName) {
       result.message,
       `<br><strong>${result.note}</strong><br><small>${result.details}</small><br><button id='swal2-retry-geo' class='swal2-styled'>Réessayer la géolocalisation</button>`
     );
+
     setTimeout(() => {
       const retryBtn = document.getElementById("swal2-retry-geo");
       if (retryBtn) {
         retryBtn.onclick = async () => {
           Swal.update({
             title: "Détection de votre position...",
-            html: `<div style='margin:1em 0;'><span class='swal2-loader'></span> Veuillez patienter...</div>`,
+            html: `<div class='swal-loader-container'><span class='swal2-loader'></span> Veuillez patienter...</div>`,
             showConfirmButton: false,
             allowOutsideClick: false,
             allowEscapeKey: false,
@@ -191,6 +223,7 @@ function handleCityCheck(cityName) {
               popup: "swal2-location-popup",
             },
           });
+
           const result = await checkLocationByCoords();
           if (result.success) {
             showResult("success", result.message);
@@ -225,7 +258,11 @@ function LocationCheckerModal() {
     // Show consent modal in bottom-right
     Swal.fire({
       title: "Zone d'intervention",
-      html: `<div style='text-align:left;'>Nous intervenons dans un rayon de <b>20km autour de Lyon</b>.<br>Souhaitez-vous vérifier automatiquement si vous êtes dans notre secteur?<br><span style='color:var(--secondary-color);font-size:0.97em;display:block;margin-top:0.9em;'>Votre emplacement reste privé sur votre appareil uniquement</span></div>`,
+      html: `<div class='swal-consent-content'>
+        Nous intervenons dans un rayon de <b>20km autour de Lyon</b>.<br>
+        Souhaitez-vous vérifier automatiquement si vous êtes dans notre secteur?<br>
+        <span class='swal-privacy-note'>Votre emplacement reste privé sur votre appareil uniquement</span>
+      </div>`,
       icon: "question",
       showCancelButton: true,
       confirmButtonText: "Oui, vérifier",
@@ -237,26 +274,17 @@ function LocationCheckerModal() {
       allowEscapeKey: false,
       showCloseButton: true,
       didOpen: () => {
-        // Move modal to bottom right
-        const popup = document.querySelector(".swal2-location-popup");
-        if (popup) {
-          popup.style.position = "fixed";
-          popup.style.right = "2vw";
-          popup.style.bottom = "2vh";
-          popup.style.left = "auto";
-          popup.style.top = "auto";
-          popup.style.margin = "0";
-          popup.style.zIndex = 9999;
-        }
+        // Position is now handled by CSS classes
       },
     }).then(async (result) => {
       if (result.isConfirmed) {
         // Show loader
         Swal.fire({
           title: "Détection de votre position...",
-          html:
-            `<div style='margin:1em 0;'><span class='swal2-loader'></span> Veuillez patienter...</div>` +
-            `<div id='swal2-location-manual' style='display:none;'></div>`,
+          html: `<div class='swal-loader-container'>
+            <span class='swal2-loader'></span> Veuillez patienter...
+          </div>
+          <div id='swal2-location-manual' class='swal-location-manual'></div>`,
           showConfirmButton: false,
           allowOutsideClick: false,
           allowEscapeKey: false,
