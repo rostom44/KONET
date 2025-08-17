@@ -34,6 +34,8 @@ header {
 
 .nav-desktop a:hover {
   color: var(--secondary-color);
+  transform: scale(1.2);
+  transition: ease-in-out 0.27s;
 }
 
 .nav-desktop a.active {
