@@ -34,6 +34,8 @@ header {
 
 .nav-desktop a:hover {
   color: var(--secondary-color);
+  transform: scale(1.2);
+  transition: ease-in-out 0.27s;
 }
 
 .nav-desktop a.active {
@@ -200,6 +202,19 @@ header {
 
 .mobile-contact-button:hover .contact-icon {
   transform: scale(1.1);
+}
+/* Copy Icon */
+.copy-icon-svg {
+  margin-left: 6px;
+  font-size: 16px;
+  color: var(--primary-color);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.copy-icon-svg:hover {
+  transform: scale(1.15);
+  color: var(--accent-color);
 }
 
 /* Hide desktop contact section on mobile */

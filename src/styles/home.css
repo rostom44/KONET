@@ -411,7 +411,7 @@
 }
 
 .home-service-card:hover {
-  box-shadow: 0 6px 24px rgba(211, 47, 47, 0.13);
+  box-shadow: 0 6px 24px rgba(105, 24, 24, 0.363);
   transform: translateY(-4px) scale(1.02);
 }
 
@@ -461,6 +461,7 @@
 
 .see-services:hover {
   transform: scale(1.1);
+  text-shadow: 0 6px 24px rgba(0, 0, 0, 0.363);
 }
 
 .see-services > svg {

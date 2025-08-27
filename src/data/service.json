@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "L’Entretien des locaux",
-      "description": "Maintenez vos locaux impeccables pour un environnement professionnel agréable.",
+      "description": "Maintenez vos locaux impeccables pour un environnement agréable.",
       "content": "Nous assurons un entretien régulier et minutieux de vos bureaux, salles de réunion, espaces communs et sanitaires. Nos équipes utilisent des produits adaptés à chaque surface pour garantir hygiène, sécurité et bien-être au travail.",
       "icon": "/assets/icons/desk.svg",
       "hint": "Service disponible en horaires flexibles, y compris tôt le matin ou en soirée."
