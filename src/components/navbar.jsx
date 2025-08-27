@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { slide as Menu } from "react-burger-menu";
-import { FaPhoneAlt, FaEnvelope } from "react-icons/fa";
+import {
+  FaPhoneAlt,
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaRegCopy,
+  FaCheck,
+} from "react-icons/fa";
 import "../styles/navbar.css";
 
 function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [copiedItems, setCopiedItems] = useState({});
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,6 +44,41 @@ function Navbar() {
     }, 100);
   };
 
+  const copyToClipboard = async (text, type) => {
+    try {
+      await navigator.clipboard.writeText(text);
+
+      setCopiedItems((prev) => ({ ...prev, [type]: true }));
+      setTimeout(() => {
+        setCopiedItems((prev) => ({ ...prev, [type]: false }));
+      }, 2000);
+    } catch (err) {
+      console.error("Clipboard API failed: ", err); // Log the error
+      // Fallback for older browsers
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand("copy");
+        setCopiedItems((prev) => ({ ...prev, [type]: true }));
+        setTimeout(() => {
+          setCopiedItems((prev) => ({ ...prev, [type]: false }));
+        }, 2000);
+      } catch (err) {
+        console.error("Failed to copy text: ", err);
+      }
+      document.body.removeChild(textArea);
+    }
+  };
+
+  const handleCopyClick = (e, text, type) => {
+    e.preventDefault();
+    e.stopPropagation();
+    copyToClipboard(text, type);
+  };
+
   return (
     <header>
       <div className={`navbar-container ${isScrolled ? "scrolled" : ""}`}>
@@ -63,6 +105,18 @@ function Navbar() {
               <span className="phone-icon">
                 <FaPhoneAlt />
               </span>
+              <span
+                className="copy-icon"
+                title={copiedItems.phone ? "Copied!" : "Copy phone"}
+                onClick={(e) => handleCopyClick(e, "+33 xxxxxxx", "phone")}
+                style={{ cursor: "pointer" }}
+              >
+                {copiedItems.phone ? (
+                  <FaCheck size={16} className="copy-icon-svg copied" />
+                ) : (
+                  <FaRegCopy size={16} className="copy-icon-svg" />
+                )}
+              </span>
             </a>
           </div>
           <div className="email-circle">
@@ -73,6 +127,18 @@ function Navbar() {
               <span className="email-text">contact@konet.fr</span>
               <span className="email-icon">
                 <FaEnvelope />
+              </span>
+              <span
+                className="copy-icon"
+                title={copiedItems.email ? "Copied!" : "Copy email"}
+                onClick={(e) => handleCopyClick(e, "contact@konet.fr", "email")}
+                style={{ cursor: "pointer" }}
+              >
+                {copiedItems.email ? (
+                  <FaCheck size={16} className="copy-icon-svg copied" />
+                ) : (
+                  <FaRegCopy size={16} className="copy-icon-svg" />
+                )}
               </span>
             </a>
           </div>
@@ -110,6 +176,17 @@ function Navbar() {
               <span className="contact-text">contact@konet.fr</span>
               <span className="contact-icon">
                 <FaEnvelope />
+              </span>
+            </a>
+            <a
+              href="https://www.google.com/maps/place/Lyon"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mobile-contact-button"
+            >
+              <span className="contact-text">Lyon</span>
+              <span className="contact-icon">
+                <FaMapMarkerAlt />
               </span>
             </a>
           </div>
